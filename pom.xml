@@ -4,7 +4,7 @@
 
   <groupId>Test</groupId>
   <artifactId>testsimple</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>jar</packaging>
 
   <name>testsimple</name>
@@ -74,7 +74,7 @@
 							<archive>
 								<manifest>
 									<mainClass>
-										Test.testsimple.ExampleSimple
+										testsimple.ExampleSimple
 									</mainClass>
 								</manifest>
 							</archive>
