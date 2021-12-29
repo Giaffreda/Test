@@ -74,7 +74,7 @@
 							<archive>
 								<manifest>
 									<mainClass>
-										testsimple.ExampleSimple
+										Test.testsimple.ExampleSimple
 									</mainClass>
 								</manifest>
 							</archive>
