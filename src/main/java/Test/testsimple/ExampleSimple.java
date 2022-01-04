@@ -2,6 +2,12 @@ package Test.testsimple;
 import java.io.IOException;
 import java.net.InetAddress;
 
+import org.beryx.textio.TextIO;
+import org.beryx.textio.TextIoFactory;
+import org.beryx.textio.TextTerminal;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
 
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.PeerBuilderDHT;
@@ -25,7 +31,9 @@ public class ExampleSimple {
 	    }
 
 	    public static void main(String[] args) throws NumberFormatException, Exception {
+	    	 System.out.println("twst");
 	        ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]));
+	        
 	        if (args.length == 3) {
 	            dns.store(args[1], args[2]);
 	        }
