@@ -47,7 +47,7 @@ public class ExampleSimple {
 		            peer.peer().discover().peerAddress(fb.bootstrapTo().iterator().next()).start().awaitUninterruptibly();
 		        }*/
 	    	//MessageListenerImpl _listner=new MessageListenerImpl(peerId);
-	    	 peer= new PeerBuilder(Number160.createHash(peerId)).ports(4000+peerId).start();
+	    	 peer= new PeerBuilder(Number160.createHash(peerId)).ports(4000).start();
 	 		_dht = new PeerBuilderDHT(peer).start();	
 	 		String master="127.0.0."+peerId;
 	 		System.out.println("AAAAA"+master);
