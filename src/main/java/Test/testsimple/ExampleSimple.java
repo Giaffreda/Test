@@ -1,6 +1,9 @@
 package Test.testsimple;
 import java.io.IOException;
 import java.net.InetAddress;
+
+import org.apache.log4j.BasicConfigurator;
+
 /*
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
@@ -43,6 +46,7 @@ public class ExampleSimple {
 
 	    public static void main(String[] args) throws NumberFormatException, Exception {
 	    	 System.out.println("twst");
+	    	 BasicConfigurator.configure();
 	        ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]));
 	        
 	        if (args.length == 3) {
