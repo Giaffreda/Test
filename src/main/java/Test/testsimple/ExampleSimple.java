@@ -33,8 +33,8 @@ public class ExampleSimple {
 	        }
 	       */ 
 	    	 peer = new PeerBuilderDHT(new PeerBuilder(Number160.createHash(peerId)).ports(4000 + peerId).start()).start();
-		        
-		        FutureBootstrap fb = this.peer.peer().bootstrap().inetAddress(InetAddress.getByName("127.0.0.1")).ports(4001).start();
+		        String master="127.0.0."+peerId;
+		        FutureBootstrap fb = this.peer.peer().bootstrap().inetAddress(InetAddress.getByName(master)).ports(4001).start();
 		        fb.awaitUninterruptibly();
 		        
 				
@@ -46,7 +46,7 @@ public class ExampleSimple {
 
 	    public static void main(String[] args) throws NumberFormatException, Exception {
 	    	 System.out.println("twst");
-	    	 BasicConfigurator.configure();
+	    	// BasicConfigurator.configure();
 	        ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]));
 	        
 	        if (args.length == 3) {
