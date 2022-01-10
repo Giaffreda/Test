@@ -77,7 +77,7 @@ public class ExampleSimple {
 	            dns.store(args[1], args[2]);
 	        }
 	        if (args.length == 2) {
-	            System.out.println("Name:" + args[1] + " IP:" + dns.get(args[1]));
+	            System.out.println("Name:" + args[1] + " IP:" + dns.get(args[0]));
 	        }
 	    }
 
