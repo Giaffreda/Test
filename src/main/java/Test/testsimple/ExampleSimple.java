@@ -1,14 +1,14 @@
 package Test.testsimple;
 import java.io.IOException;
 import java.net.InetAddress;
-
+/*
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
-
+*/
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
@@ -20,14 +20,25 @@ public class ExampleSimple {
 	  final private PeerDHT peer;
 
 	    public ExampleSimple(int peerId) throws Exception {
-
+	    	/*
 	        peer = new PeerBuilderDHT(new PeerBuilder(Number160.createHash(peerId)).ports(4000 + peerId).start()).start();
-
+	        
 	        FutureBootstrap fb = this.peer.peer().bootstrap().inetAddress(InetAddress.getByName("127.0.0.1")).ports(4001).start();
 	        fb.awaitUninterruptibly();
 	        if(fb.isSuccess()) {
 	            peer.peer().discover().peerAddress(fb.bootstrapTo().iterator().next()).start().awaitUninterruptibly();
 	        }
+	       */ 
+	    	 peer = new PeerBuilderDHT(new PeerBuilder(Number160.createHash(peerId)).ports(4000 + peerId).start()).start();
+		        
+		        FutureBootstrap fb = this.peer.peer().bootstrap().inetAddress(InetAddress.getByName("127.0.0.1")).ports(4001).start();
+		        fb.awaitUninterruptibly();
+		        
+				
+		        if(fb.isSuccess()) {
+		            peer.peer().discover().peerAddress(fb.bootstrapTo().iterator().next()).start().awaitUninterruptibly();
+		        }
+		       
 	    }
 
 	    public static void main(String[] args) throws NumberFormatException, Exception {
