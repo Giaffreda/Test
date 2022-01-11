@@ -72,7 +72,7 @@ public class ExampleSimple {
 	    public static void main(String[] args) throws NumberFormatException, Exception {
 	    	 System.out.println("twst");
 	    	// BasicConfigurator.configure();
-	        ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]),args[3]);
+	        ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]),args[2]);
 	        
 	        if (args.length == 4) {
 	            dns.store(args[1], args[2]);
