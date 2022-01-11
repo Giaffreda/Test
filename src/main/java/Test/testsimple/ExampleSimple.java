@@ -28,7 +28,7 @@ public class ExampleSimple {
 	  final private Peer peer;
 	  final private PeerDHT _dht;
 	  final private int DEFAULT_MASTER_PORT=4000;
-	    public ExampleSimple(int peerId) throws Exception {
+	    public ExampleSimple(int peerId ,String master) throws Exception {
 	    	/*
 	        peer = new PeerBuilderDHT(new PeerBuilder(Number160.createHash(peerId)).ports(4000 + peerId).start()).start();
 	        
@@ -50,7 +50,7 @@ public class ExampleSimple {
 	    	//MessageListenerImpl _listner=new MessageListenerImpl(peerId);
 	    	 peer= new PeerBuilder(Number160.createHash(peerId)).ports(DEFAULT_MASTER_PORT+peerId).start();
 	 		_dht = new PeerBuilderDHT(peer).start();	
-	 		String master="127.0.0.1";
+	 		
 	 		System.out.println("AAAAA"+master);
 	 		FutureBootstrap fb = peer.bootstrap().inetAddress(InetAddress.getByName(master)).ports(DEFAULT_MASTER_PORT).start();
 	 		fb.awaitUninterruptibly();
@@ -72,12 +72,12 @@ public class ExampleSimple {
 	    public static void main(String[] args) throws NumberFormatException, Exception {
 	    	 System.out.println("twst");
 	    	// BasicConfigurator.configure();
-	        ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]));
+	        ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]),args[3]);
 	        
-	        if (args.length == 3) {
+	        if (args.length == 4) {
 	            dns.store(args[1], args[2]);
 	        }
-	        if (args.length == 2) {
+	        if (args.length == 3) {
 	            System.out.println("Name:" + args[1] + " IP:" + dns.get(args[1]));
 	        }
 	    }
