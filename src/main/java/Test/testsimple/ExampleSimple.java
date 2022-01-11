@@ -113,7 +113,7 @@ public class ExampleSimple {
 	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
 			if (futureGet.isSuccess() && futureGet.isEmpty()) 
-	        _dht.put(Number160.createHash(name)).data(new Data(ip)).start().awaitUninterruptibly();
+	        _dht.put(Number160.createHash(name)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 	    } catch (Exception e) {
 			e.printStackTrace();
 		}
