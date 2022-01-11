@@ -27,6 +27,7 @@ import net.tomp2p.storage.Data;
 public class ExampleSimple {
 	  final private Peer peer;
 	  final private PeerDHT _dht;
+	  final private int DEFAULT_MASTER_PORT=4000;
 	    public ExampleSimple(int peerId) throws Exception {
 	    	/*
 	        peer = new PeerBuilderDHT(new PeerBuilder(Number160.createHash(peerId)).ports(4000 + peerId).start()).start();
@@ -47,11 +48,11 @@ public class ExampleSimple {
 		            peer.peer().discover().peerAddress(fb.bootstrapTo().iterator().next()).start().awaitUninterruptibly();
 		        }*/
 	    	//MessageListenerImpl _listner=new MessageListenerImpl(peerId);
-	    	 peer= new PeerBuilder(Number160.createHash(peerId)).ports(4000).start();
+	    	 peer= new PeerBuilder(Number160.createHash(peerId)).ports(DEFAULT_MASTER_PORT+peerId).start();
 	 		_dht = new PeerBuilderDHT(peer).start();	
 	 		String master="127.0.0."+peerId;
 	 		System.out.println("AAAAA"+master);
-	 		FutureBootstrap fb = peer.bootstrap().inetAddress(InetAddress.getByName(master)).ports(4000).start();
+	 		FutureBootstrap fb = peer.bootstrap().inetAddress(InetAddress.getByName(master)).ports(DEFAULT_MASTER_PORT).start();
 	 		fb.awaitUninterruptibly();
 	 		if(fb.isSuccess()) {
 	 			peer.discover().peerAddress(fb.bootstrapTo().iterator().next()).start().awaitUninterruptibly();
@@ -94,6 +95,7 @@ public class ExampleSimple {
 	        	
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				System.out.print("teeest");
 				for(PeerAddress peer:peers_on_topic)
 				{
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(name).start();
