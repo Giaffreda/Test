@@ -4,7 +4,11 @@ import java.net.InetAddress;
 import java.util.HashSet;
 
 import org.apache.log4j.BasicConfigurator;
+import org.beryx.textio.TextIO;
+import org.beryx.textio.TextIoFactory;
+import org.beryx.textio.TextTerminal;
 
+//import it.isislab.p2p.chat.MessageListener;
 /*
 import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
@@ -28,7 +32,7 @@ public class ExampleSimple {
 	  final private Peer peer;
 	  final private PeerDHT _dht;
 	  final private int DEFAULT_MASTER_PORT=4000;
-	    public ExampleSimple(int peerId ,String master) throws Exception {
+	    public ExampleSimple(int peerId ,String master, final MessageListener _listener) throws Exception {
 	    	/*
 	        peer = new PeerBuilderDHT(new PeerBuilder(Number160.createHash(peerId)).ports(4000 + peerId).start()).start();
 	        
@@ -60,19 +64,36 @@ public class ExampleSimple {
 	 			throw new Exception("Error in master peer bootstrap.");
 	 		}
 	 		
-	 		/*peer.objectDataReply(new ObjectDataReply() {
+	 		peer.objectDataReply(new ObjectDataReply() {
 	 			
 	 			public Object reply(PeerAddress sender, Object request) throws Exception {
 	 				return _listener.parseMessage(request);
 	 			}
-	 		});*/
+	 		});
 		       
 	    }
 
 	    public static void main(String[] args) throws NumberFormatException, Exception {
 	    	 System.out.println("twst");
+	    	 class MessageListenerImpl implements MessageListener{
+	 			int peerid;
+	 		
+	 			public MessageListenerImpl(int peerid)
+	 			{
+	 				this.peerid=peerid;
+
+	 			}
+	 			public Object parseMessage(Object obj) {
+	 				
+	 				TextIO textIO = TextIoFactory.getTextIO();
+	 				TextTerminal terminal = textIO.getTextTerminal();
+	 				terminal.printf("\n"+peerid+"] (Direct Message Received) "+obj+"\n\n");
+	 				return "success";
+	 			}
+
+	 		}
 	    	// BasicConfigurator.configure();
-	        ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]),args[2]);
+	        ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]),args[2],new MessageListenerImpl(Integer.parseInt(args[0])));
 	        
 	        if (args.length == 4) {
 	            dns.store(args[1], args[2]);
