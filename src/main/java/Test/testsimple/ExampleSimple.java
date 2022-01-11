@@ -112,8 +112,10 @@ public class ExampleSimple {
 	    	try {
 	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
-			if (futureGet.isSuccess() && futureGet.isEmpty()) 
+			if (futureGet.isSuccess() && futureGet.isEmpty()) {
 	        _dht.put(Number160.createHash(name)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+	        System.out.print("put test");
+			}
 	    } catch (Exception e) {
 			e.printStackTrace();
 		}
