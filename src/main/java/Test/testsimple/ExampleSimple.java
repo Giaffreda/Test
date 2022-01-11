@@ -50,7 +50,7 @@ public class ExampleSimple {
 	    	//MessageListenerImpl _listner=new MessageListenerImpl(peerId);
 	    	 peer= new PeerBuilder(Number160.createHash(peerId)).ports(DEFAULT_MASTER_PORT+peerId).start();
 	 		_dht = new PeerBuilderDHT(peer).start();	
-	 		String master="127.0.0."+peerId;
+	 		String master="127.0.0.1";
 	 		System.out.println("AAAAA"+master);
 	 		FutureBootstrap fb = peer.bootstrap().inetAddress(InetAddress.getByName(master)).ports(DEFAULT_MASTER_PORT+peerId).start();
 	 		fb.awaitUninterruptibly();
