@@ -83,7 +83,7 @@ public class ExampleSimple {
 	    }
 
 	    private String get(String name) throws ClassNotFoundException, IOException {
-	        FutureGet futureGet = _dht.get(Number160.createHash(Integer.parseInt(name))).start();
+	        FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 	        futureGet.awaitUninterruptibly();
 	        try {
 	        if (futureGet.isSuccess()) {
@@ -109,6 +109,13 @@ public class ExampleSimple {
 	    }
 
 	    private void store(String name, String ip) throws IOException {
+	    	try {
+	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
+			futureGet.awaitUninterruptibly();
+			if (futureGet.isSuccess() && futureGet.isEmpty()) 
 	        _dht.put(Number160.createHash(name)).data(new Data(ip)).start().awaitUninterruptibly();
+	    } catch (Exception e) {
+			e.printStackTrace();
+		}
 	    }
 }
