@@ -52,7 +52,7 @@ public class ExampleSimple {
 	 		_dht = new PeerBuilderDHT(peer).start();	
 	 		String master="127.0.0.1";
 	 		System.out.println("AAAAA"+master);
-	 		FutureBootstrap fb = peer.bootstrap().inetAddress(InetAddress.getByName(master)).ports(DEFAULT_MASTER_PORT+peerId).start();
+	 		FutureBootstrap fb = peer.bootstrap().inetAddress(InetAddress.getByName(master)).ports(DEFAULT_MASTER_PORT).start();
 	 		fb.awaitUninterruptibly();
 	 		if(fb.isSuccess()) {
 	 			peer.discover().peerAddress(fb.bootstrapTo().iterator().next()).start().awaitUninterruptibly();
