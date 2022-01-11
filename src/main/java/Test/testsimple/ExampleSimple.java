@@ -82,7 +82,7 @@ public class ExampleSimple {
 	    }
 
 	    private String get(String name) throws ClassNotFoundException, IOException {
-	        FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
+	        FutureGet futureGet = _dht.get(Number160.createHash(Integer.parseInt(name))).start();
 	        futureGet.awaitUninterruptibly();
 	        try {
 	        if (futureGet.isSuccess()) {
@@ -91,6 +91,7 @@ public class ExampleSimple {
 				PeerDHT.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				PeerDHT.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly().toString();
 				return "x";*/
+	        	
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 				for(PeerAddress peer:peers_on_topic)
