@@ -110,7 +110,7 @@ public class ExampleSimple {
 				}else {
 				
 					if(textIO.newBooleanInputReader().withDefaultValue(false).read("cerca?")) {
-						dns.searchFriends(args[0], args[1]);
+						dns.searchFriends(args[1], args[0]);
 					}
 					else{
 						if(textIO.newBooleanInputReader().withDefaultValue(false).read("eccetta?")) {
