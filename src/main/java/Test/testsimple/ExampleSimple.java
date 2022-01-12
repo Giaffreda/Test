@@ -8,6 +8,7 @@ import org.beryx.textio.TextIO;
 import org.beryx.textio.TextIoFactory;
 import org.beryx.textio.TextTerminal;
 
+import net.tomp2p.connection.SendBehavior.SendMethod;
 //import it.isislab.p2p.chat.MessageListener;
 /*
 import org.beryx.textio.TextIO;
@@ -106,10 +107,30 @@ public class ExampleSimple {
 				terminal.printf("wait");
 				if(textIO.newBooleanInputReader().withDefaultValue(false).read("exit?")) {
 					System.exit(0);
+				}else {
+					String message=textIO.newStringInputReader().withDefaultValue("default").read("Messaggio da inviare");
+					dns.sendMessage(args[1], message);
 				}
 				}
 	    }
-
+	    private boolean sendMessage(String name, Object message) {
+	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
+	        futureGet.awaitUninterruptibly();
+	        try {
+		        if (futureGet.isSuccess()) {
+		        	HashSet<PeerAddress> peers_on_topic;
+					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+					for(PeerAddress peer:peers_on_topic)
+					{
+						FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(message).start();
+						futureDirect.awaitUninterruptibly();
+					}
+					return true;
+		        }}catch (Exception e) {
+					// TODO: handle exception
+				}
+	    	return false;
+	    }
 	    private String get(String name) throws ClassNotFoundException, IOException {
 	        FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 	        futureGet.awaitUninterruptibly();
@@ -157,7 +178,7 @@ public class ExampleSimple {
 			futureGet.awaitUninterruptibly();
 			if (futureGet.isSuccess() && futureGet.isEmpty()) {
 	        _dht.put(Number160.createHash(name)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
-	        
+	        _dht.put(Number160.createHash(name)).data(new Data(_dht.peer().peerAddress())).start().awaitUninterruptibly();
 	        System.out.print("put test");
 			}
 	    } catch (Exception e) {
