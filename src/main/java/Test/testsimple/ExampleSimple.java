@@ -178,7 +178,7 @@ public class ExampleSimple {
 			futureGet.awaitUninterruptibly();
 			if (futureGet.isSuccess() && futureGet.isEmpty()) {
 	        _dht.put(Number160.createHash(name)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
-	        _dht.put(Number160.createHash(name)).data(new Data(_dht.peer().peerAddress())).start().awaitUninterruptibly();
+	       // _dht.put(Number160.createHash(name)).data(new Data(_dht.peer().peerAddress())).start().awaitUninterruptibly();
 	        System.out.print("put test");
 			}
 	    } catch (Exception e) {
