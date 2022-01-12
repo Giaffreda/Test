@@ -53,7 +53,7 @@ public class ExampleSimple {
 		            peer.peer().discover().peerAddress(fb.bootstrapTo().iterator().next()).start().awaitUninterruptibly();
 		        }*/
 	    	//MessageListenerImpl _listner=new MessageListenerImpl(peerId);
-	    	 peer= new PeerBuilder(Number160.createHash(peerId)).ports(DEFAULT_MASTER_PORT+peerId).start();
+	    	 peer= new PeerBuilder(Number160.createHash(peerId+1)).ports(DEFAULT_MASTER_PORT+peerId).start();
 	 		_dht = new PeerBuilderDHT(peer).start();	
 	 		
 	 		System.out.println("AAAAA"+master);
@@ -117,9 +117,11 @@ public class ExampleSimple {
 							dns.getFriends(args[0], textIO.newStringInputReader().withDefaultValue("default").read("Messaggio da inviare"));
 						}
 						else {
-					String message=textIO.newStringInputReader().withDefaultValue("default").read("Messaggio da inviare");
-					String name=textIO.newStringInputReader().withDefaultValue("default").read("a chi?");
-					dns.sendMessage(name, message);
+							if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi inviare un messaggio?")) {
+								String message=textIO.newStringInputReader().withDefaultValue("default").read("Messaggio da inviare");
+								String name=textIO.newStringInputReader().withDefaultValue("default").read("a chi?");
+								dns.sendMessage(name, message);
+					}
 					}
 					}
 				}
