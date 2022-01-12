@@ -113,10 +113,23 @@ public class ExampleSimple {
 				PeerDHT.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				PeerDHT.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly().toString();
 				return "x";*/
-	        	
+	        	/*
+	        	 * FutureGet futureGet = _dht.get(Number160.createHash(_topic_name)).start();
+			futureGet.awaitUninterruptibly();
+			if (futureGet.isSuccess()) {
+				HashSet<PeerAddress> peers_on_topic;
+				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				for(PeerAddress peer:peers_on_topic)
+				{
+					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(_obj).start();
+					futureDirect.awaitUninterruptibly();
+				}
+				
+				return true;*/
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 				peers_on_topic.add(_dht.peer().peerAddress());
+				//peers_on_topic.add(peer.peerAddress());
 				System.out.print("teeest");
 				for(PeerAddress peer:peers_on_topic)
 				{
@@ -135,7 +148,8 @@ public class ExampleSimple {
 	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
 			if (futureGet.isSuccess() && futureGet.isEmpty()) {
-	        _dht.put(Number160.createHash(name)).data(new Data(peer.peerAddress())).start().awaitUninterruptibly();
+	        _dht.put(Number160.createHash(name)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+	        
 	        System.out.print("put test");
 			}
 	    } catch (Exception e) {
