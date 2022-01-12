@@ -94,13 +94,20 @@ public class ExampleSimple {
 	 		}
 	    	// BasicConfigurator.configure();
 	        ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]),args[2],new MessageListenerImpl(Integer.parseInt(args[0])));
-	        
+	        TextIO textIO = TextIoFactory.getTextIO();
+	        TextTerminal terminal = textIO.getTextTerminal();;
 	        if (args.length == 4) {
 	            dns.store(args[1], args[2]);
 	        }
 	        if (args.length == 3) {
 	            System.out.println("Name:" + args[1] + " IP:" + dns.get(args[1]));
 	        }
+	        while(true) {
+				terminal.printf("wait");
+				if(textIO.newBooleanInputReader().withDefaultValue(false).read("exit?")) {
+					System.exit(0);
+				}
+				}
 	    }
 
 	    private String get(String name) throws ClassNotFoundException, IOException {
