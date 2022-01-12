@@ -108,8 +108,20 @@ public class ExampleSimple {
 				if(textIO.newBooleanInputReader().withDefaultValue(false).read("exit?")) {
 					System.exit(0);
 				}else {
+				
+					if(textIO.newBooleanInputReader().withDefaultValue(false).read("cerca?")) {
+						dns.searchFriends(args[0], args[1]);
+					}
+					else{
+						if(textIO.newBooleanInputReader().withDefaultValue(false).read("eccetta?")) {
+							dns.getFriends(args[0], textIO.newStringInputReader().withDefaultValue("default").read("Messaggio da inviare"));
+						}
+						else {
 					String message=textIO.newStringInputReader().withDefaultValue("default").read("Messaggio da inviare");
-					dns.sendMessage(args[1], message);
+					String name=textIO.newStringInputReader().withDefaultValue("default").read("a chi?");
+					dns.sendMessage(name, message);
+					}
+					}
 				}
 				}
 	    }
@@ -187,4 +199,47 @@ public class ExampleSimple {
 			e.printStackTrace();
 		}
 	    }
+	    
+	    private void searchFriends(String name, String profile) throws IOException {
+	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
+			futureGet.awaitUninterruptibly();
+			try {
+			if (futureGet.isSuccess()) {
+				HashSet<PeerAddress> peers_on_topic;
+				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				peers_on_topic.add(_dht.peer().peerAddress());
+				_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				for(PeerAddress peer:peers_on_topic){
+					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(profile).start();
+					futureDirect.awaitUninterruptibly();
+				}
+			}
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+	    	
+	    }
+	    private void getFriends(String name, String profile) throws IOException {
+	    	FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
+			futureGet.awaitUninterruptibly();
+			try {
+			if (futureGet.isSuccess()) {
+				HashSet<PeerAddress> peers_on_topic;
+				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				//_dht.put(Number160.createHash(name)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
+				peers_on_topic.add(_dht.peer().peerAddress());
+				_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				
+				for(PeerAddress peer:peers_on_topic){
+					String message=name+"ha accettato";
+					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(name).start();
+					futureDirect.awaitUninterruptibly();
+				}
+			}
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+	    	
+	    }
+	    
 }
