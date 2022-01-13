@@ -33,6 +33,7 @@ public class ExampleSimple {
 	  final private Peer peer;
 	  final private PeerDHT _dht;
 	  final private int DEFAULT_MASTER_PORT=4000;
+	  private String answer;
 	    public ExampleSimple(int peerId ,String master, final MessageListener _listener) throws Exception {
 	    	/*
 	        peer = new PeerBuilderDHT(new PeerBuilder(Number160.createHash(peerId)).ports(4000 + peerId).start()).start();
@@ -53,7 +54,7 @@ public class ExampleSimple {
 		            peer.peer().discover().peerAddress(fb.bootstrapTo().iterator().next()).start().awaitUninterruptibly();
 		        }*/
 	    	//MessageListenerImpl _listner=new MessageListenerImpl(peerId);
-	    	 peer= new PeerBuilder(Number160.createHash(peerId+1)).ports(DEFAULT_MASTER_PORT+peerId).start();
+	    	 peer= new PeerBuilder(Number160.createHash(peerId)).ports(DEFAULT_MASTER_PORT+peerId).start();
 	 		_dht = new PeerBuilderDHT(peer).start();	
 	 		
 	 		System.out.println("AAAAA"+master);
@@ -97,6 +98,7 @@ public class ExampleSimple {
 	        ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]),args[2],new MessageListenerImpl(Integer.parseInt(args[0])));
 	        TextIO textIO = TextIoFactory.getTextIO();
 	        TextTerminal terminal = textIO.getTextTerminal();;
+	        dns.setAnswer(textIO.newStringInputReader().withDefaultValue("default").read("risposte"));
 	        if (args.length == 4) {
 	            dns.store(args[1], args[2]);
 	        }
@@ -115,6 +117,7 @@ public class ExampleSimple {
 					else{
 						if(textIO.newBooleanInputReader().withDefaultValue(false).read("eccetta?")) {
 							dns.getFriends(args[0], textIO.newStringInputReader().withDefaultValue("default").read("Messaggio da inviare"));
+							dns.FriendsbyId(args[0], textIO.newStringInputReader().withDefaultValue("default").read("profilo"), textIO.newStringInputReader().withDefaultValue("default").read("risposte"));
 						}
 						else {
 							if(textIO.newBooleanInputReader().withDefaultValue(false).read("vuoi inviare un messaggio?")) {
@@ -211,6 +214,7 @@ public class ExampleSimple {
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 				peers_on_topic.add(_dht.peer().peerAddress());
 				_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				profile="il mio id "+profile+"le mie risposte "+answer;
 				for(PeerAddress peer:peers_on_topic){
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(profile).start();
 					futureDirect.awaitUninterruptibly();
@@ -242,6 +246,38 @@ public class ExampleSimple {
 				// TODO: handle exception
 			}
 	    	
+	    }
+	    private void FriendsbyId(String name, String profile, String hisanswer) throws IOException {
+	    	FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
+			futureGet.awaitUninterruptibly();
+			try {
+			if (futureGet.isSuccess()&&hammingDistance(answer, hisanswer)<3) {
+				HashSet<PeerAddress> peers_on_topic;
+				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				//_dht.put(Number160.createHash(name)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
+				peers_on_topic.add(_dht.peer().peerAddress());
+				_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				
+				for(PeerAddress peer:peers_on_topic){
+					String message=name+"ha accettato";
+					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(message).start();
+					futureDirect.awaitUninterruptibly();
+				}
+			}
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+			}
+	    public int hammingDistance(String a, String b) {
+			int count=0;
+			for (int i=0; i<a.length();i++) {
+				if(a.charAt(i)!=b.charAt(i))
+					count++;
+			}
+			return count;
+		}
+	    public void setAnswer(String a) {
+	    	answer=a;
 	    }
 	    
 }
