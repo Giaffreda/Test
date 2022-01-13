@@ -1,7 +1,9 @@
 package Test.testsimple;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 import org.beryx.textio.TextIO;
@@ -77,7 +79,7 @@ public class ExampleSimple {
 
 	    public static void main(String[] args) throws NumberFormatException, Exception {
 	    	 System.out.println("twst");
-	    	 class MessageListenerImpl implements MessageListener{
+	    	/* class MessageListenerImpl implements MessageListener{
 	 			int peerid;
 	 		
 	 			public MessageListenerImpl(int peerid)
@@ -93,9 +95,24 @@ public class ExampleSimple {
 	 				return "success";
 	 			}
 
-	 		}
-	    	// BasicConfigurator.configure();
-	        ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]),args[2],new MessageListenerImpl(Integer.parseInt(args[0])));
+	 		}*/
+	    	 TextIO textIO = TextIoFactory.getTextIO();
+		     TextTerminal terminal = textIO.getTextTerminal();
+	    	 SemanticHarmonySocialNetworkImpl ex= new SemanticHarmonySocialNetworkImpl(Integer.parseInt(args[0]), args[1]);
+	    	List<String> question= ex.getUserProfileQuestions();
+	    	List <Integer> answer =new ArrayList<>();
+	    	for (int i=0; i<question.size();i++) {
+	    		answer.add(Integer.parseInt(question.get(i)));
+	    	}
+	    	String key= ex.createAuserProfileKey(answer);
+	    	ex.join(key, textIO.newStringInputReader().withDefaultValue("default").read("inserisci nick"));
+	    	while(true) {
+				if(textIO.newBooleanInputReader().withDefaultValue(false).read("exit?")) {
+					System.exit(0);
+				}
+				}
+	    	 // BasicConfigurator.configure();
+	        /*ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]),args[2],new MessageListenerImpl(Integer.parseInt(args[0])));
 	        TextIO textIO = TextIoFactory.getTextIO();
 	        TextTerminal terminal = textIO.getTextTerminal();;
 	        dns.setAnswer(textIO.newStringInputReader().withDefaultValue("default").read("risposte"));
@@ -128,7 +145,7 @@ public class ExampleSimple {
 					}
 					}
 				}
-				}
+				}*/
 	    }
 	    private boolean sendMessage(String name, Object message) {
 	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
@@ -203,9 +220,7 @@ public class ExampleSimple {
 	    } catch (Exception e) {
 			e.printStackTrace();
 		}
-	    }
-	    
-	    private void searchFriends(String name, String profile) throws IOException {
+	    }  private void searchFriends(String name, String profile) throws IOException {
 	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
 			try {
@@ -225,6 +240,8 @@ public class ExampleSimple {
 			}
 	    	
 	    }
+	    
+	  
 	    private void getFriends(String name, String profile) throws IOException {
 	    	FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
 			futureGet.awaitUninterruptibly();
