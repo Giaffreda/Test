@@ -116,7 +116,7 @@ public class ExampleSimple {
 					}
 					else{
 						if(textIO.newBooleanInputReader().withDefaultValue(false).read("eccetta?")) {
-							dns.getFriends(args[0], textIO.newStringInputReader().withDefaultValue("default").read("Messaggio da inviare"));
+							//dns.getFriends(args[0], textIO.newStringInputReader().withDefaultValue("default").read("Messaggio da inviare"));
 							dns.FriendsbyId(args[0], textIO.newStringInputReader().withDefaultValue("default").read("profilo"), textIO.newStringInputReader().withDefaultValue("default").read("risposte"));
 						}
 						else {
