@@ -42,6 +42,7 @@ public class Connector {
 	  public void searchFriends(String name, String nickName, String answer) throws IOException {
 	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
+			nickName="test";
 			try {
 				/*
 				 * FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
@@ -69,8 +70,9 @@ public class Connector {
 	    	
 	    }
 	  public void connection(String name, String nickName) {
-		  FutureGet futureGet = _dht.get(Number160.createHash(nickName)).start();
+		  FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
+			nickName="test";
 			try {
 			if (futureGet.isSuccess()) {
 				HashSet<PeerAddress> peers_on_topic;
