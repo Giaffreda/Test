@@ -90,15 +90,16 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  				TextIO textIO = TextIoFactory.getTextIO();
  				TextTerminal terminal = textIO.getTextTerminal();
  				terminal.printf("\n"+peerid+"] (Direct Message Received) "+obj+"\n\n");
+ 				String a = (String) obj;
  				if(textIO.newBooleanInputReader().withDefaultValue(false).read("add?")) {
- 					con.connection(peerId, _nick_name);
+ 					con.connection("name", a);
  				}
  				return "success";
  			}
 
  		}
 			con=new Connector(peerId, adress, new MessageListenerImpl(peerId));
-			con.searchFriends(peerId, _nick_name, _profile_key);
+			con.searchFriends("name", _nick_name, _profile_key);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
