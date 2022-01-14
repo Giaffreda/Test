@@ -73,7 +73,7 @@ public class Connector {
 	  public void connection(String name, String nickName) {
 		  FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
-			nickName="test";
+			//nickName="test";
 			try {
 			if (futureGet.isSuccess()) {
 				HashSet<PeerAddress> peers_on_topic;
