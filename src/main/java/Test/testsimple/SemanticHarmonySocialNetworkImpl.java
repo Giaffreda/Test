@@ -26,7 +26,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	List<String>question;
 	private int peerId;
 	final private String adress;
-	private Connector con;
+	public Connector con;
 	
 	public SemanticHarmonySocialNetworkImpl(int id, String adress) throws Exception {
 		 question=new ArrayList<String>();

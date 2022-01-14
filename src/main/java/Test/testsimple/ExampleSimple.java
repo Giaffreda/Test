@@ -106,6 +106,7 @@ public class ExampleSimple {
 	    	}
 	    	String key= ex.createAuserProfileKey(answer);
 	    	ex.join(key, textIO.newStringInputReader().withDefaultValue("default").read("inserisci nick"));
+	    	System.out.println(ex.con.peerId);
 	    	while(true) {
 				if(textIO.newBooleanInputReader().withDefaultValue(false).read("exit?")) {
 					System.exit(0);

@@ -20,7 +20,7 @@ public class Connector {
 	private Peer peer;
 	 private PeerDHT _dht;
 	 final private int DEFAULT_MASTER_PORT=4000;
-	 private int peerId;
+	 public int peerId;
 	 public Connector(int id, String adress, final MessageListener _listener) throws Exception {
 		 peerId=id;
 		 peer= new PeerBuilder(Number160.createHash(peerId)).ports(DEFAULT_MASTER_PORT+peerId).start();
@@ -53,6 +53,7 @@ public class Connector {
 	        peers_on_topic.add(_dht.peer().peerAddress());
 	        _dht.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();*/
 			if (futureGet.isSuccess()) {
+				System.out.println("future search friends succes");
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 				_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
@@ -80,7 +81,7 @@ public class Connector {
 				//_dht.put(Number160.createHash(name)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 				peers_on_topic.add(_dht.peer().peerAddress());
 				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
-				
+				System.out.println("future connection succes");
 				for(PeerAddress peer:peers_on_topic){
 					String message=name+"ha accettato";
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(name).start();
