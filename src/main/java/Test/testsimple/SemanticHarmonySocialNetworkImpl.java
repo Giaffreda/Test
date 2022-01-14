@@ -91,7 +91,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  				TextTerminal terminal = textIO.getTextTerminal();
  				terminal.printf("\n"+peerid+"] (Direct Message Received) "+obj+"\n\n");
  				if(textIO.newBooleanInputReader().withDefaultValue(false).read("add?")) {
- 					con.connection(name, _nick_name);
+ 					con.connection(peerId, _nick_name);
  				}
  				return "success";
  			}
