@@ -56,7 +56,7 @@ public class Connector {
 				System.out.println("future search friends succes");
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-				_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
+				//_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 				peers_on_topic.add(_dht.peer().peerAddress());
 				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				//nickName="il mio id "+nickName+"le mie risposte "+answer;
