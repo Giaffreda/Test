@@ -92,7 +92,7 @@ public class Connector {
 				// TODO: handle exception
 			}
 	  }
-	  private void store(String name, String ip) throws IOException {
+	  public void store(String name, String ip) throws IOException {
 	    	try {
 	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
@@ -107,4 +107,25 @@ public class Connector {
 			e.printStackTrace();
 		}
 	    } 
+	  public void getFriends(String name, String profile) throws IOException {
+	    	FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
+			futureGet.awaitUninterruptibly();
+			try {
+			if (futureGet.isSuccess()) {
+				HashSet<PeerAddress> peers_on_topic;
+				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				//_dht.put(Number160.createHash(name)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
+				peers_on_topic.add(_dht.peer().peerAddress());
+				_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				
+				for(PeerAddress peer:peers_on_topic){
+					String message=name+"ha accettato";
+					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(name).start();
+					futureDirect.awaitUninterruptibly();
+				}
+			}
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+			}
 }
