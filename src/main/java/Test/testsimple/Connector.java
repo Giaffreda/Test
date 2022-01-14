@@ -42,7 +42,7 @@ public class Connector {
 	  public void searchFriends(String name, String nickName, String answer) throws IOException {
 	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
-			nickName="test";
+			//nickName="test";
 			try {
 				/*
 				 * FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
@@ -56,12 +56,12 @@ public class Connector {
 				System.out.println("future search friends succes");
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-				_dht.put(Number160.createHash(name)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 				peers_on_topic.add(_dht.peer().peerAddress());
-				_dht.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				//nickName="il mio id "+nickName+"le mie risposte "+answer;
 				for(PeerAddress peer:peers_on_topic){
-					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(name).start();
+					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(nickName).start();
 					futureDirect.awaitUninterruptibly();
 				}
 			}
@@ -80,7 +80,7 @@ public class Connector {
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 				//_dht.put(Number160.createHash(name)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 				peers_on_topic.add(_dht.peer().peerAddress());
-				_dht.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("future connection succes");
 				for(PeerAddress peer:peers_on_topic){
 					//String message=name+"ha accettato";

@@ -103,8 +103,10 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			con.connection("name", _nick_name);*/
 			if(peerId==0)
 			con.store("test", "ip");
-			else
+			else {
 				con.getFriends(_nick_name, "test");
+				con.searchFriends("test", _nick_name, "");
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
