@@ -105,7 +105,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			con.store("test", "ip");
 			else {
 				con.getFriends(_nick_name, "test");
-				con.searchFriends("test", _nick_name, "");
+				con.searchFriends(_nick_name, "test", "");
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
