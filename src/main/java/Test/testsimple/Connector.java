@@ -119,6 +119,7 @@ public class Connector {
 				//_dht.put(Number160.createHash(name)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 				peers_on_topic.add(_dht.peer().peerAddress());
 				_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				System.out.println("future cgetfriends succes");
 				test=new App("prova", peerId,name);
 				for(PeerAddress peer:peers_on_topic){
 					String message=name+"ha accettato";
