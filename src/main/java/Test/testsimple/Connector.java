@@ -84,6 +84,8 @@ public class Connector {
 				peers_on_topic.add(_dht.peer().peerAddress());
 				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("future connection succes");
+				System.out.println("future connection "+nickName);
+
 				for(PeerAddress peer:peers_on_topic){
 					//String message=name+"ha accettato";
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(name).start();
@@ -120,6 +122,7 @@ public class Connector {
 				peers_on_topic.add(_dht.peer().peerAddress());
 				//_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("future cgetfriends succes");
+				System.out.println("future getfriends "+profile);
 				test=new App("prova", peerId,name);
 				for(PeerAddress peer:peers_on_topic){
 					String message=name+"ha accettato";
