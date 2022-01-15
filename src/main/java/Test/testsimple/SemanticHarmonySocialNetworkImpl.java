@@ -105,7 +105,8 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  				}
  				return "success";
  			}
-
+ 		
+    	
  		}
 			con=new Connector(peerId, adress, new MessageListenerImpl(peerId));
 			/*con.searchFriends("name", _nick_name, _profile_key);
