@@ -63,7 +63,7 @@ public class Connector {
 				_dht.put(Number160.createHash(test.getNickname())).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				//nickName="il mio id "+nickName+"le mie risposte "+answer;
 				for(PeerAddress peer:peers_on_topic){
-					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test.getNickname()).start();
+					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 				}
 			}
@@ -126,7 +126,7 @@ public class Connector {
 				test=new App("prova", peerId,profile);
 				for(PeerAddress peer:peers_on_topic){
 					String message=name+"ha accettato";
-					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(name).start();
+					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 				}
 			}
