@@ -60,7 +60,7 @@ public class Connector {
 				test=new App("prova", peerId, nickName);
 				_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 				peers_on_topic.add(_dht.peer().peerAddress());
-				//_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				//nickName="il mio id "+nickName+"le mie risposte "+answer;
 				for(PeerAddress peer:peers_on_topic){
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
