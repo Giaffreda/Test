@@ -79,21 +79,23 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		try {
 			 class MessageListenerImpl implements MessageListener{
  			int peerid;
- 		
+ 			
  			public MessageListenerImpl(int peerid)
  			{
  				this.peerid=peerid;
+ 				//type.valueOf(_nick_name);
 
  			}
  			public Object parseMessage(Object obj) {
  				
  				TextIO textIO = TextIoFactory.getTextIO();
  				TextTerminal terminal = textIO.getTextTerminal();
- 				terminal.printf("\n"+peerid+"] (Direct Message Received) "+obj+"\n\n");
- 				String a = (String) obj;
+ 				App a = (App) obj;
+ 				terminal.printf("\n"+peerid+"] (Direct Message Received) "+a.getNickname()+"\n\n");
+ 				
  				if(textIO.newBooleanInputReader().withDefaultValue(false).read("add?")) {
  					try {
-						con.getFriends(_nick_name, a);
+						con.getFriends(_nick_name, a.getNickname());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

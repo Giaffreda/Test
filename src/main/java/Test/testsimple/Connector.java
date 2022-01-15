@@ -21,6 +21,7 @@ public class Connector {
 	 private PeerDHT _dht;
 	 final private int DEFAULT_MASTER_PORT=4000;
 	 public int peerId;
+	 private App test;
 	 public Connector(int id, String adress, final MessageListener _listener) throws Exception {
 		 peerId=id;
 		 peer= new PeerBuilder(Number160.createHash(peerId)).ports(DEFAULT_MASTER_PORT+peerId).start();
@@ -56,12 +57,13 @@ public class Connector {
 				System.out.println("future search friends succes");
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				test=new App("prova", peerId, nickName);
 				_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 				peers_on_topic.add(_dht.peer().peerAddress());
 				//_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				//nickName="il mio id "+nickName+"le mie risposte "+answer;
 				for(PeerAddress peer:peers_on_topic){
-					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(nickName).start();
+					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 				}
 			}
