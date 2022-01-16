@@ -36,8 +36,8 @@ public class Connector {
 	 		peer.objectDataReply(new ObjectDataReply() {
 	 			
 	 			public Object reply(PeerAddress sender, Object request) throws Exception {
-	 				App a= (App) request;
-	 				return _listener.parseMessage(a);
+	 				System.out.println("obj reply");
+	 				return _listener.parseMessage(request);
 	 			}
 	 		});
 	}
