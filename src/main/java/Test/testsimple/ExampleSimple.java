@@ -67,13 +67,13 @@ public class ExampleSimple {
 	 		}else {
 	 			throw new Exception("Error in master peer bootstrap.");
 	 		}
-	 		
+	 		/*
 	 		peer.objectDataReply(new ObjectDataReply() {
 	 			
 	 			public Object reply(PeerAddress sender, Object request) throws Exception {
 	 				return _listener.parseMessage(request);
 	 			}
-	 		});
+	 		});*/
 		       
 	    }
 
