@@ -64,7 +64,9 @@ public class Connector {
 				_dht.put(Number160.createHash(test.getNickname())).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				//nickName="il mio id "+nickName+"le mie risposte "+answer;
 				System.out.println("nick name per send di test ="+test.getNickname());
+				test.setMytype(App.type.friends);
 				for(PeerAddress peer:peers_on_topic){
+					
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 				}
@@ -137,6 +139,26 @@ public class Connector {
 				// TODO: handle exception
 			}
 			}
+	  public boolean sendMessage(String destination, String source,Object message) {
+	    	FutureGet futureGet = _dht.get(Number160.createHash(destination)).start();
+	        futureGet.awaitUninterruptibly();
+	        try {
+		        if (futureGet.isSuccess()) {
+		        	HashSet<PeerAddress> peers_on_topic;
+					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+					App test= new App((String)message,peerId,source);
+					test.setMytype(App.type.chat);
+					for(PeerAddress peer:peers_on_topic)
+					{
+						FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
+						futureDirect.awaitUninterruptibly();
+					}
+					return true;
+		        }}catch (Exception e) {
+					// TODO: handle exception
+				}
+	    	return false;
+	    }
 	  /* private String get(String name) throws ClassNotFoundException, IOException {
 	        FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 	        futureGet.awaitUninterruptibly();

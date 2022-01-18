@@ -96,9 +96,14 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  				if(textIO.newBooleanInputReader().withDefaultValue(false).read("add?")) {
  					try {
  						App a = (App) obj;
+ 						
+ 						if(a.getMytype()==App.type.friends) {
  						terminal.printf("\n"+peerid+"] (Direct Message Received) to nickname"+a.getNickname()+"\n\n");
  						
 						con.getFriends(_nick_name, a.getNickname());
+						}else {
+							terminal.printf("\n"+peerid+"] (Direct Message Received) message"+a.getText()+"\n\n");
+						}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

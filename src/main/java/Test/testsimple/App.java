@@ -12,10 +12,12 @@ public class App implements Serializable
     private int peerId;
     private String Nickname;
     public enum type{chat,friends}
+    private type mytype;
     public App(String text,int peerId,String Nickname) {
     	 this.text=text;
         this.peerId=peerId;
         this.Nickname=Nickname;
+        
     }
 	public String getText() {
 		return text;
@@ -34,5 +36,12 @@ public class App implements Serializable
 	}
 	public void setNickname(String nickname) {
 		Nickname = nickname;
+	}
+	public type getMytype() {
+		return mytype;
+	}
+	public void setMytype(type mytype) {
+		this.mytype = mytype;
 	};
+	
 }
