@@ -96,7 +96,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  				if(textIO.newBooleanInputReader().withDefaultValue(false).read("add?")) {
  					try {
  						App a = (App) obj;
- 						terminal.printf("\n"+peerid+"] (Direct Message Received) "+a.getNickname()+"\n\n");
+ 						terminal.printf("\n"+peerid+"] (Direct Message Received) to nickname"+a.getNickname()+"\n\n");
  						
 						con.getFriends(_nick_name, a.getNickname());
 					} catch (IOException e) {
@@ -116,6 +116,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			con.store("test", "ip");
 			else {
 				con.getFriends(_nick_name, "test");
+				System.out.println("nick name per search ="+_nick_name);
 				con.searchFriends("test", _nick_name, "");
 			}
 		} catch (Exception e) {

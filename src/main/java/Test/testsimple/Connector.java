@@ -63,6 +63,7 @@ public class Connector {
 				peers_on_topic.add(_dht.peer().peerAddress());
 				_dht.put(Number160.createHash(test.getNickname())).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				//nickName="il mio id "+nickName+"le mie risposte "+answer;
+				System.out.println("nick name per send di test ="+test.getNickname());
 				for(PeerAddress peer:peers_on_topic){
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
