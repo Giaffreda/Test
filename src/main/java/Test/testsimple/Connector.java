@@ -125,13 +125,13 @@ public class Connector {
 				_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("future cgetfriends succes");
 				System.out.println("future getfriends "+profile);
-				test=new App("prova", peerId,profile);
+				/*test=new App("prova", peerId,profile);
 				for(PeerAddress peer:peers_on_topic){
 					String message=name+"ha accettato";
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 			
 					futureDirect.awaitUninterruptibly();
-				}
+				}*/
 			}
 			}catch (Exception e) {
 				// TODO: handle exception
