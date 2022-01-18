@@ -27,7 +27,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	private int peerId;
 	final private String adress;
 	public Connector con;
-	
+	private ArrayList<String> friendList;
 	public SemanticHarmonySocialNetworkImpl(int id, String adress) throws Exception {
 		 question=new ArrayList<String>();
 		 peerId=id;
@@ -36,6 +36,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		 question.add("Ho una parola gentile per tutti");
 		 
 		 this.adress=adress;
+		 friendList=new ArrayList<>();
 		/* peer= new PeerBuilder(Number160.createHash(peerId)).ports(DEFAULT_MASTER_PORT+peerId).start();
 	 	_dht = new PeerBuilderDHT(peer).start();
 	 	FutureBootstrap fb = peer.bootstrap().inetAddress(InetAddress.getByName(adress)).ports(DEFAULT_MASTER_PORT).start();
@@ -93,22 +94,26 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  				;
  				terminal.printf("\n"+peerid+"] (Direct Message Received) "+obj+"\n\n");
  				//String a= (String) obj;
- 				if(textIO.newBooleanInputReader().withDefaultValue(false).read("add?")) {
  					try {
  						App a = (App) obj;
  						
  						if(a.getMytype()==App.type.friends) {
- 						terminal.printf("\n"+peerid+"] (Direct Message Received) to nickname"+a.getNickname()+"\n\n");
- 						
+ 						terminal.printf("\n"+peerid+"] (Direct Message Received) to nickname "+a.getNickname()+"\n\n");
+ 						if(textIO.newBooleanInputReader().withDefaultValue(false).read("add?")) {
+ 			 				
 						con.getFriends(_nick_name, a.getNickname());
-						}else {
+						friendList.add(a.getNickname());
+						}
+						}else if(a.getMytype()==App.type.chat){
 							terminal.printf("\n"+peerid+"] (Direct Message Received) message"+a.getText()+"\n\n");
+						} else {
+							friendList.add(a.getNickname());
 						}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
- 				}
+ 				
  				return "success";
  			}
  		
@@ -135,7 +140,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	@Override
 	public List<String> getFriends() {
 		// TODO Auto-generated method stub
-		return null;
+		return friendList;
 	}
 
 }

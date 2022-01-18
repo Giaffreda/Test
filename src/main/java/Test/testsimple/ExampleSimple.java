@@ -110,6 +110,8 @@ public class ExampleSimple {
 	    	System.out.println(ex.con.peerId);
 	    	while(true) {
 				if(textIO.newBooleanInputReader().withDefaultValue(false).read("exit?")) {
+					for(int i=0; i<ex.getFriends().size();i++)
+					 System.out.println("twst"+ex.getFriends().get(i));
 					System.exit(0);
 				}else if(textIO.newBooleanInputReader().withDefaultValue(false).read("send?")){
 					ex.con.sendMessage(textIO.newStringInputReader().withDefaultValue("default").read("destination"), nick, "messaggio di prova");
