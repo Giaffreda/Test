@@ -1,10 +1,12 @@
 package Test.testsimple;
 
+import java.io.Serializable;
+
 /**
  * Hello world!
  *
  */
-public class App 
+public class App implements Serializable
 {
     private String text;
     private int peerId;
