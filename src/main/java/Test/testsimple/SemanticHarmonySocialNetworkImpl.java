@@ -98,11 +98,11 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  						App a = (App) obj;
  						
  						if(a.getMytype()==App.type.friends) {
- 						terminal.printf("\n"+peerid+"] (Direct Message Received) to nickname "+a.getNickname()+"\n\n");
+ 						//terminal.printf("\n"+peerid+"] (Direct Message Received) to nickname "+a.getNickname()+"\n\n");
  						//if(textIO.newBooleanInputReader().withDefaultValue(false).read("add?")) {
  			 				if(hammingDistance(a.getText(), _profile_key)<2) {
 						con.getFriends(_nick_name, a.getNickname());
- 			 				
+						//terminal.printf("\n"+"] (Direct Message Received) message"+a.getText()+"\n\n");
 						friendList.add(a.getNickname());
  			 				}
 						//}
@@ -127,7 +127,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			if(peerId==0)
 			con.store("test", "ip");
 			else {
-				con.get( "test");
+			//	con.get( "test");
 				System.out.println("nick name per search ="+_nick_name);
 				con.searchFriends("test", _nick_name, _profile_key);
 			}
