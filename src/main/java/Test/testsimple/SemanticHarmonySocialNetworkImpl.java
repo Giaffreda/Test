@@ -145,6 +145,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	}
 	 public int hammingDistance(String a, String b) {
 			int count=0;
+			System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAA"+a.length());
 			for (int i=0; i<a.length();i++) {
 				if(a.charAt(i)!=b.charAt(i))
 					count++;
