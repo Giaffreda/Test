@@ -160,7 +160,7 @@ public class Connector {
 				}
 	    	return false;
 	    }
-	  /* private String get(String name) throws ClassNotFoundException, IOException {
+	   public String get(String name) throws ClassNotFoundException, IOException {
 	        FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 	        futureGet.awaitUninterruptibly();
 	        try {
@@ -173,16 +173,16 @@ public class Connector {
 				peers_on_topic.add(_dht.peer().peerAddress());
 				_dht.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				//peers_on_topic.add(peer.peerAddress());
-				System.out.print("teeest");
+				/*System.out.print("teeest");
 				for(PeerAddress peer:peers_on_topic)
 				{
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(name).start();
 					futureDirect.awaitUninterruptibly();
-				}
+				}*/
 				return "x";
 	        }}catch (Exception e) {
 				// TODO: handle exception
 			}
 	        return "not found";
-	    }*/
+	    }
 }
