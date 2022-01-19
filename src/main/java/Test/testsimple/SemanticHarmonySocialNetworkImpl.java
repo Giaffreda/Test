@@ -99,13 +99,13 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  						
  						if(a.getMytype()==App.type.friends) {
  						terminal.printf("\n"+peerid+"] (Direct Message Received) to nickname "+a.getNickname()+"\n\n");
- 						if(textIO.newBooleanInputReader().withDefaultValue(false).read("add?")) {
+ 						//if(textIO.newBooleanInputReader().withDefaultValue(false).read("add?")) {
  			 				if(hammingDistance(a.getText(), _profile_key)<2) {
 						con.getFriends(_nick_name, a.getNickname());
  			 				
 						friendList.add(a.getNickname());
  			 				}
-						}
+						//}
 						}else if(a.getMytype()==App.type.chat){
 							terminal.printf("\n"+peerid+"] (Direct Message Received) message"+a.getText()+"\n\n");
 						} else {
