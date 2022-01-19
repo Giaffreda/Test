@@ -34,7 +34,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		 question.add("Ho una parola gentile per tutti");
 		 question.add("Ho una parola gentile per tutti");
 		 question.add("Ho una parola gentile per tutti");
-		 
+		 question.add("Ho una parola gentile per tutti");
 		 this.adress=adress;
 		 friendList=new ArrayList<>();
 		/* peer= new PeerBuilder(Number160.createHash(peerId)).ports(DEFAULT_MASTER_PORT+peerId).start();
@@ -100,9 +100,11 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  						if(a.getMytype()==App.type.friends) {
  						terminal.printf("\n"+peerid+"] (Direct Message Received) to nickname "+a.getNickname()+"\n\n");
  						if(textIO.newBooleanInputReader().withDefaultValue(false).read("add?")) {
- 			 				
+ 			 				if(hammingDistance(a.getText(), _profile_key)<2) {
 						con.getFriends(_nick_name, a.getNickname());
+ 			 				
 						friendList.add(a.getNickname());
+ 			 				}
 						}
 						}else if(a.getMytype()==App.type.chat){
 							terminal.printf("\n"+peerid+"] (Direct Message Received) message"+a.getText()+"\n\n");
@@ -136,7 +138,14 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  		
 		return false;
 	}
-
+	 public int hammingDistance(String a, String b) {
+			int count=0;
+			for (int i=0; i<a.length();i++) {
+				if(a.charAt(i)!=b.charAt(i))
+					count++;
+			}
+			return count;
+		}
 	@Override
 	public List<String> getFriends() {
 		// TODO Auto-generated method stub
