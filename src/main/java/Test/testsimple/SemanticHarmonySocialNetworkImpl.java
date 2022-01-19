@@ -109,6 +109,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 						}else if(a.getMytype()==App.type.chat){
 							terminal.printf("\n"+peerid+"] (Direct Message Received) message"+a.getText()+"\n\n");
 						} else {
+							terminal.printf("\n"+peerid+" aggiunge un nuovo amico che ha i dati"+a+"\n\n");
 							friendList.add(a.getNickname());
 						}
 					} catch (IOException e) {
