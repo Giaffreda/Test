@@ -44,6 +44,6 @@ public class App implements Serializable
 		this.mytype = mytype;
 	};
 	public String toString() {
-		return "text= "+text+" peerId= "+peerId+" nickname= "+"type ="+mytype;
+		return " text= "+text+" peerId= "+peerId+" nickname= "+Nickname+" type ="+mytype;
 	}
 }
