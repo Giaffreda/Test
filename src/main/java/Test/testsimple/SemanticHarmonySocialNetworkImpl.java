@@ -133,7 +133,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			con.store("test", "ip");
 			con.get("test");
 			}else {
-				//con.get( "test");
+				con.get( "test");
 				System.out.println("nick name per search ="+_nick_name);
 				con.searchFriends(_nick_name, "test", _profile_key);
 			}
