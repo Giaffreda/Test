@@ -129,9 +129,10 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			con=new Connector(peerId, adress, new MessageListenerImpl(peerId));
 			/*con.searchFriends("name", _nick_name, _profile_key);
 			con.connection("name", _nick_name);*/
-			if(peerId==0)
+			if(peerId==0) {
 			con.store("test", "ip");
-			else {
+			con.get("test");
+			}else {
 				con.get( "test");
 				System.out.println("nick name per search ="+_nick_name);
 				con.searchFriends("test", _nick_name, _profile_key);
