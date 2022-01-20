@@ -72,6 +72,7 @@ public class Connector {
 					futureDirect.awaitUninterruptibly();
 				}
 				//_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic)).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(nickName)).data(new Data( new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 			}
 			}catch (Exception e) {
 				// TODO: handle exception
