@@ -101,7 +101,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  						//terminal.printf("\n"+peerid+"] (Direct Message Received) to nickname "+a.getNickname()+"\n\n");
  						//if(textIO.newBooleanInputReader().withDefaultValue(false).read("add?")) {
  			 				if(hammingDistance(a.getText(), _profile_key)<2) {
-						con.getFriends(_nick_name, a.getNickname());
+						con.getFriends("test", a.getNickname());
 						//terminal.printf("\n"+"] (Direct Message Received) message"+a.getText()+"\n\n");
 						terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"\n\n");
 
