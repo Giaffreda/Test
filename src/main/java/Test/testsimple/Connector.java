@@ -75,6 +75,9 @@ public class Connector {
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 				}
+				_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic)).start().awaitUninterruptibly();
+
 				//_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic)).start().awaitUninterruptibly();
 				//_dht.put(Number160.createHash(nickName)).data(new Data( new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 			}
