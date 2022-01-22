@@ -42,7 +42,7 @@ public class Connector {
 	 		});
 	}
 	  public void searchFriends(String name, String nickName, String profilekey) throws IOException {
-	    	FutureGet futureGet = _dht.get(Number160.createHash(nickName)).start();
+	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
 			//nickName="test";
 			try {
@@ -62,7 +62,7 @@ public class Connector {
 				//_dht.put(Number160.createHash(name)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 				peers_on_topic.add(_dht.peer().peerAddress());
 				
-				_dht.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				/*
 				 *  _dht.put(Number160.createHash(name)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 	        peers_on_topic.add(_dht.peer().peerAddress());
@@ -123,7 +123,7 @@ public class Connector {
 		}
 	    } 
 	  public void getFriends(String name, String profile) throws IOException {
-	    	FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
+	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
 			try {
 			if (futureGet.isSuccess()) {
