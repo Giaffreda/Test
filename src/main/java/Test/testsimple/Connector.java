@@ -130,8 +130,8 @@ public class Connector {
 			if (futureGet.isSuccess() && futureGet.isEmpty()) {
 				HashSet<PeerAddress> peers_on_topic;
 	        _dht.put(Number160.createHash(name)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
-	        peers_on_topic.add(_dht.peer().peerAddress());
-	        _dht.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+	        // peers_on_topic.add(_dht.peer().peerAddress());
+	        //_dht.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 	        System.out.print("put test");
 			}
 	    } catch (Exception e) {
