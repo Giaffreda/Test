@@ -216,9 +216,17 @@ public class Connector {
 					HashSet<PeerAddress> peers_on_topic;
 					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 					//_dht.put(Number160.createHash(profile)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
-
+					test=new App("prova", peerId,name);
 					peers_on_topic.add(_dht.peer().peerAddress());
 					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
+					test.setMytype(App.type.response);
+					for(PeerAddress peer:peers_on_topic){
+						String message=name+"ha accettato";
+						System.out.println("send response");
+						FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
+				
+						futureDirect.awaitUninterruptibly();
+					}
 					return true;
 					
 				}
