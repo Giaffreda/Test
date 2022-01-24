@@ -111,7 +111,7 @@ public class Connector {
 				test=new App(profilekey, peerId, nickName);
 				//_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 				peers_on_topic.add(_dht.peer().peerAddress());
-				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				//_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("nick name per send di test ="+test.getNickname());
 				test.setMytype(App.type.friends);
 				for(PeerAddress peer:peers_on_topic){
