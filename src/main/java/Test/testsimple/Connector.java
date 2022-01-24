@@ -159,10 +159,10 @@ public class Connector {
 					futureDirect.awaitUninterruptibly();
 				}
 			} else {
-				System.out.println("error");
+				System.out.println("error1");
 			}
 			}catch (Exception e) {
-				System.out.println("error");
+				System.out.println("error2");
 			}
 			}
 	  public boolean sendMessage(String destination, String source,Object message) {
