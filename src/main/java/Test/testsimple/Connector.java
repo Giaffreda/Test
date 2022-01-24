@@ -169,7 +169,8 @@ public class Connector {
 	  public boolean getFriends2(String name, String profile) throws IOException {
 		  try {
 				FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
-				futureGet.awaitUninterruptibly();
+				
+				futureGet.awaitUninterruptibly(1000);
 				if (futureGet.isSuccess()) {
 					if(futureGet.isEmpty() ) return false;
 					HashSet<PeerAddress> peers_on_topic;
