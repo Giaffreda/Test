@@ -7,6 +7,7 @@ import java.util.HashSet;
 import net.tomp2p.dht.FutureGet;
 import net.tomp2p.dht.PeerBuilderDHT;
 import net.tomp2p.dht.PeerDHT;
+import net.tomp2p.futures.BaseFutureAdapter;
 import net.tomp2p.futures.FutureBootstrap;
 import net.tomp2p.futures.FutureDirect;
 import net.tomp2p.p2p.Peer;
@@ -169,8 +170,17 @@ public class Connector {
 	  public boolean getFriends2(String name, String profile) throws IOException {
 		  try {
 				FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
-				
-				futureGet.awaitUninterruptibly(1000);
+				futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+					 @Override
+					 public void operationComplete(FutureGet future) throws Exception {
+					  if(future.isSuccess()) { // this flag indicates if the future was successful
+					   System.out.println("success");
+					  } else {
+					   System.out.println("failure");
+					  }
+					 }
+					});
+				//futureGet.awaitUninterruptibly(1000);
 				if (futureGet.isSuccess()) {
 					if(futureGet.isEmpty() ) return false;
 					HashSet<PeerAddress> peers_on_topic;
