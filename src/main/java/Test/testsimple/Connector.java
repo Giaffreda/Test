@@ -210,7 +210,7 @@ public class Connector {
 					 }
 					}).awaitListenersUninterruptibly();
 				
-				if (futureGet.isSuccess()&& !profile.equals(name)) {
+				if (futureGet.isSuccess()&& (!profile.equals(name))) {
 					if(futureGet.isEmpty() ) {
 						System.out.println("is empty");
 						return false;
