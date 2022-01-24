@@ -80,7 +80,7 @@ public class Connector {
 				System.out.println("nick name per send di test ="+test.getNickname());
 				test.setMytype(App.type.friends);
 				for(PeerAddress peer:peers_on_topic){
-					
+					System.out.println("peer ="+peer);
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 				}
