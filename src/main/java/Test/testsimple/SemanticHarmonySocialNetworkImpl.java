@@ -133,7 +133,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			con.connection("name", _nick_name);*/
 			if(peerId==0) {
 			con.store("test", "ip");
-			con.store(_nick_name,"null");
+			//con.store(_nick_name,"null");
 			}else {
 				
 				//con.get( "test");
