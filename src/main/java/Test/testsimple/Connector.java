@@ -166,6 +166,24 @@ public class Connector {
 				
 			}
 			}
+	  public boolean getFriends2(String name, String profile) throws IOException {
+		  try {
+				FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
+				futureGet.awaitUninterruptibly();
+				if (futureGet.isSuccess()) {
+					if(futureGet.isEmpty() ) return false;
+					HashSet<PeerAddress> peers_on_topic;
+					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+					peers_on_topic.add(_dht.peer().peerAddress());
+					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+					return true;
+					
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+			}
 	  public boolean sendMessage(String destination, String source,Object message) {
 	    	FutureGet futureGet = _dht.get(Number160.createHash(destination)).start();
 	        futureGet.awaitUninterruptibly();
