@@ -201,12 +201,13 @@ public class Connector {
 					 public void operationComplete(FutureGet future) throws Exception {
 					  if(future.isSuccess()) { // this flag indicates if the future was successful
 					   System.out.println("success");
+					   
 					  } else {
 					   System.out.println("failure");
 					  }
 					 }
-					});
-				futureGet.awaitUninterruptibly();
+					}).awaitListenersUninterruptibly();
+				
 				if (futureGet.isSuccess()) {
 					if(futureGet.isEmpty() ) {
 						System.out.println("is empty");
