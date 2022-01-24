@@ -109,8 +109,8 @@ public class Connector {
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 				test=new App(profilekey, peerId, nickName);
-				_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
-				peers_on_topic.add(_dht.peer().peerAddress());
+				//_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+				//peers_on_topic.add(_dht.peer().peerAddress());
 				System.out.println("nick name per send di test ="+test.getNickname());
 				test.setMytype(App.type.friends);
 				for(PeerAddress peer:peers_on_topic){
@@ -118,6 +118,7 @@ public class Connector {
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 				}
+				_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 			}
 			}catch (Exception e) {
 				// TODO: handle exception
@@ -208,7 +209,7 @@ public class Connector {
 					 }
 					}).awaitListenersUninterruptibly();
 				
-				if (futureGet.isSuccess()) {
+				if (futureGet.isSuccess()&& !profile.equals(name)) {
 					if(futureGet.isEmpty() ) {
 						System.out.println("is empty");
 						return false;
@@ -225,7 +226,7 @@ public class Connector {
 						System.out.println("send response");
 						FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 				
-						futureDirect.awaitUninterruptibly();
+						futureDirect.awaitListenersUninterruptibly();
 					}
 					return true;
 					
