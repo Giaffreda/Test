@@ -206,7 +206,7 @@ public class Connector {
 					  }
 					 }
 					});
-				//futureGet.awaitUninterruptibly(1000);
+				futureGet.awaitUninterruptibly();
 				if (futureGet.isSuccess()) {
 					if(futureGet.isEmpty() ) {
 						System.out.println("is empty");
