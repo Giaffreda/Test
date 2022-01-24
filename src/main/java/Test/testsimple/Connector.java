@@ -80,7 +80,7 @@ public class Connector {
 				System.out.println("nick name per send di test ="+test.getNickname());
 				test.setMytype(App.type.friends);
 				for(PeerAddress peer:peers_on_topic){
-					System.out.println("peer ="+peer);
+					//System.out.println("peer ="+peer);
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 				}
@@ -139,6 +139,7 @@ public class Connector {
 	    } 
 	  public void getFriends(String name, String profile) throws IOException {
 	    	FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
+	    	System.out.println("future status"+futureGet.toString());
 			futureGet.awaitUninterruptibly();
 			try {
 			if (futureGet.isSuccess()&&futureGet.isEmpty()) {
