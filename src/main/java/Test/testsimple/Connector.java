@@ -100,7 +100,7 @@ public class Connector {
 	    }
 	  
 	  public void searchFriends2(String name, String nickName, String profilekey) throws IOException {
-	    	FutureGet futureGet = _dht.get(Number160.createHash(nickName)).start();
+	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
 			//nickName="test";
 			try {
