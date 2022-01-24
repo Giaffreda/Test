@@ -146,7 +146,7 @@ public class Connector {
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 				//_dht.put(Number160.createHash(profile)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
-				peers_on_topic.add(_dht.peer().peerAddress());
+				//peers_on_topic.add(_dht.peer().peerAddress());
 				//_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("future cgetfriends succes");
 				System.out.println("future getfriends "+profile);
@@ -163,6 +163,7 @@ public class Connector {
 			}
 			}catch (Exception e) {
 				System.out.println("error2");
+				
 			}
 			}
 	  public boolean sendMessage(String destination, String source,Object message) {
