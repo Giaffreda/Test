@@ -85,11 +85,11 @@ public class Connector {
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 				}
-				/*_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 				peers_on_topic.add(_dht.peer().peerAddress());
 
-				_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic)).start().awaitUninterruptibly();
-				*/
+				//_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic)).start().awaitUninterruptibly();
+				
 				//_dht.put(Number160.createHash(nickName)).data(new Data( peers_on_topic)).start().awaitUninterruptibly();
 				//_dht.put(Number160.createHash(nickName)).data(new Data( new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 			}
@@ -99,6 +99,31 @@ public class Connector {
 	    	
 	    }
 	  
+	  public void searchFriends2(String name, String nickName, String profilekey) throws IOException {
+	    	FutureGet futureGet = _dht.get(Number160.createHash(nickName)).start();
+			futureGet.awaitUninterruptibly();
+			//nickName="test";
+			try {
+				if (futureGet.isSuccess()) {
+				System.out.println("future search friends succes");
+				HashSet<PeerAddress> peers_on_topic;
+				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				test=new App(profilekey, peerId, nickName);
+				_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+				peers_on_topic.add(_dht.peer().peerAddress());
+				System.out.println("nick name per send di test ="+test.getNickname());
+				test.setMytype(App.type.friends);
+				for(PeerAddress peer:peers_on_topic){
+					//System.out.println("peer ="+peer);
+					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
+					futureDirect.awaitUninterruptibly();
+				}
+			}
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+	    	
+	    }
 	  public void connection(String name, String nickName) {
 		  FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
@@ -147,7 +172,7 @@ public class Connector {
 			if (futureGet.isSuccess()&&futureGet.isEmpty()) {
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-				_dht.put(Number160.createHash(profile)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
+				//_dht.put(Number160.createHash(profile)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 				//peers_on_topic.add(_dht.peer().peerAddress());
 				//_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("future cgetfriends succes");

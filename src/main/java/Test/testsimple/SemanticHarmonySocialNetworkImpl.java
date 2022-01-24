@@ -138,7 +138,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				
 				//con.get( "test");
 				System.out.println("nick name per search ="+_nick_name);
-				con.searchFriends("test", _nick_name, _profile_key);
+				con.searchFriends2("test", _nick_name, _profile_key);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
