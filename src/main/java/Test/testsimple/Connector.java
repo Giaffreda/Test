@@ -175,21 +175,6 @@ public class Connector {
 					 @Override
 					 public void operationComplete(FutureGet future) throws Exception {
 					  if(future.isSuccess()) { // this flag indicates if the future was successful
-						  HashSet<PeerAddress> peers_on_topic;
-							peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-							
-							
-						  System.out.println("future cgetfriends succes");
-							System.out.println("future getfriends "+profile);
-							test=new App("prova", peerId,name);
-							test.setMytype(App.type.response);
-							
-							for(PeerAddress peer:peers_on_topic){
-								String message=name+"ha accettato";
-								FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
-						
-								futureDirect.awaitUninterruptibly();
-							}
 					   System.out.println("success");
 					  } else {
 					   System.out.println("failure");
@@ -198,7 +183,10 @@ public class Connector {
 					});
 				//futureGet.awaitUninterruptibly(1000);
 				if (futureGet.isSuccess()) {
-					if(futureGet.isEmpty() ) return false;
+					if(futureGet.isEmpty() ) {
+						System.out.println("is empty");
+						return false;
+					}
 					HashSet<PeerAddress> peers_on_topic;
 					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 					peers_on_topic.add(_dht.peer().peerAddress());
