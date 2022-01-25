@@ -133,9 +133,12 @@ public class Connector {
 	  public void composedSearchFriends2(String name, String nickName, String profilekey) throws IOException{
 		  FutureGet futureGet = _dht.get(Number160.createHash(nickName)).start();
 			futureGet.awaitUninterruptibly();
+			HashSet<PeerAddress> peers_on_topic;
+			try {
 			if (futureGet.isSuccess() && futureGet.isEmpty()) {
 				System.out.println("future 1 success");
-				_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				
 			}
 			futureGet=_dht.get(Number160.createHash(name)).start();
@@ -144,8 +147,8 @@ public class Connector {
 			test.setMytype(App.type.friends);
 			if (futureGet.isSuccess() ) {
 				System.out.println("future 2 success");
-			HashSet<PeerAddress> peers_on_topic;
-			try {
+			
+		
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 				
 				for(PeerAddress peer:peers_on_topic)
@@ -153,13 +156,14 @@ public class Connector {
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 				}
+			}
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			
 			}
 			
 			
