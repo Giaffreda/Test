@@ -135,7 +135,7 @@ public class Connector {
 			futureGet.awaitUninterruptibly();
 			if (futureGet.isSuccess() && futureGet.isEmpty()) {
 				System.out.println("future 1 success");
-				_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(nickName)).data(new Data(_dht.peer().peerAddress())).start().awaitUninterruptibly();
 				
 			}
 			futureGet=_dht.get(Number160.createHash(name)).start();
