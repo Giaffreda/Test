@@ -224,7 +224,7 @@ public class Connector {
 					//_dht.put(Number160.createHash(profile)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 					test=new App("prova", peerId,name);
 					//peers_on_topic.add(_dht.peer().peerAddress());
-					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
+					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitListenersUninterruptibly();
 					test.setMytype(App.type.response);
 					for(PeerAddress peer:peers_on_topic){
 						if(!(peer.peerId().equals(_dht.peer().peerAddress().peerId()))) {
