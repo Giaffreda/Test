@@ -140,13 +140,14 @@ public class Connector {
 			}
 			futureGet=_dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
+			test=new App(profilekey, peerId, nickName);
 			test.setMytype(App.type.friends);
 			if (futureGet.isSuccess() ) {
 				System.out.println("future 2 success");
 			HashSet<PeerAddress> peers_on_topic;
 			try {
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-				test=new App(profilekey, peerId, nickName);
+				
 				for(PeerAddress peer:peers_on_topic)
 				{
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
