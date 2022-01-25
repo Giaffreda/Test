@@ -111,7 +111,7 @@ public class Connector {
 				test=new App(profilekey, peerId, nickName);
 				//_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 				//peers_on_topic.add(_dht.peer().peerAddress());
-				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 				System.out.println("nick name per send di test ="+test.getNickname());
 				test.setMytype(App.type.friends);
 				Number160 id= new Number160(peerId);
@@ -224,7 +224,7 @@ public class Connector {
 					//_dht.put(Number160.createHash(profile)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 					test=new App("prova", peerId,name);
 					//peers_on_topic.add(_dht.peer().peerAddress());
-					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitListenersUninterruptibly();
+					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
 					test.setMytype(App.type.response);
 					for(PeerAddress peer:peers_on_topic){
 						if(!(peer.peerId().equals(_dht.peer().peerAddress().peerId()))) {
