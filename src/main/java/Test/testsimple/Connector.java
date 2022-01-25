@@ -130,6 +130,37 @@ public class Connector {
 			}
 	    	
 	    }
+	  public void searchFriends3(String name, String nickName, String profilekey) throws IOException {
+	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
+			futureGet.awaitUninterruptibly();
+			//nickName="test";
+			try {
+				if (futureGet.isSuccess()) {
+				System.out.println("future search friends succes");
+				HashSet<PeerAddress> peers_on_topic;
+				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				test=new App(profilekey, peerId, nickName);
+				//_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+				//peers_on_topic.add(_dht.peer().peerAddress());
+				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				System.out.println("nick name per send di test ="+test.getNickname());
+				test.setMytype(App.type.friends);
+				Number160 id= new Number160(peerId);
+				for(PeerAddress peer:peers_on_topic){
+					System.out.println("peer ="+peer.peerId()+" peeradress" +_dht.peer().peerAddress().peerId());
+					//if(!(peer.equals(_dht.peer().peerAddress()))) {
+					if(!(peer.peerId().equals(_dht.peer().peerAddress().peerId()))) {
+					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
+					futureDirect.awaitUninterruptibly();
+					}
+				}
+				//_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+			}
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+	    	
+	    }
 	  public void composedSearchFriends2(String name, String nickName, String profilekey) throws IOException{
 		  FutureGet futureGet = _dht.get(Number160.createHash(nickName)).start();
 			futureGet.awaitUninterruptibly();
@@ -273,7 +304,7 @@ public class Connector {
 						}
 					}
 					peers_on_topic.remove(_dht.peer().peerAddress());
-					//_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
+					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
 					return true;
 					
 				}
