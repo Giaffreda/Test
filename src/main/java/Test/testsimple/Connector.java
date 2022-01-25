@@ -114,9 +114,10 @@ public class Connector {
 				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("nick name per send di test ="+test.getNickname());
 				test.setMytype(App.type.friends);
+				Number160 id= new Number160(peerId);
 				for(PeerAddress peer:peers_on_topic){
-					System.out.println("peer ="+peer+" peeradress" +_dht.peer());
-					if(peer.peerId()!=_dht.peer().peerID()) {
+					System.out.println("peer ="+peer+" peeradress" +_dht.peer().peerAddress());
+					if(peer.peerId()!=id) {
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 					}
