@@ -116,7 +116,7 @@ public class Connector {
 				test.setMytype(App.type.friends);
 				for(PeerAddress peer:peers_on_topic){
 					//System.out.println("peer ="+peer);
-					if(peer!=_dht.peer().peerAddress()) {
+					if(peer!=_dht.peerAddress()) {
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 					}
