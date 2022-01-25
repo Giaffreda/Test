@@ -134,39 +134,36 @@ public class Connector {
 		  FutureGet futureGet = _dht.get(Number160.createHash(nickName)).start();
 			futureGet.awaitUninterruptibly();
 			if (futureGet.isSuccess() && futureGet.isEmpty()) {
-			try {
-				
 				System.out.println("future 1 success");
-				HashSet<PeerAddress> peers_on_topic;
-				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 				
-			
+			}
 			futureGet=_dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
 			test=new App(profilekey, peerId, nickName);
 			test.setMytype(App.type.friends);
 			if (futureGet.isSuccess() ) {
 				System.out.println("future 2 success");
-			
-		
+			HashSet<PeerAddress> peers_on_topic;
+			try {
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-				
+				test=new App(profilekey, peerId, nickName);
 				for(PeerAddress peer:peers_on_topic)
 				{
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 				}
-			}
+				peers_on_topic.add(_dht.peer().peerAddress());
+				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+			}
 			
-			}
-			}
 			
 		
 	  }
