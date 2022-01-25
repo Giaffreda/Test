@@ -133,10 +133,12 @@ public class Connector {
 	  public void composedSearchFriends2(String name, String nickName, String profilekey) throws IOException{
 		  FutureGet futureGet = _dht.get(Number160.createHash(nickName)).start();
 			futureGet.awaitUninterruptibly();
-			HashSet<PeerAddress> peers_on_topic;
+			
 			try {
+				HashSet<PeerAddress> peers_on_topic;
 			if (futureGet.isSuccess() && futureGet.isEmpty()) {
 				System.out.println("future 1 success");
+				
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				
