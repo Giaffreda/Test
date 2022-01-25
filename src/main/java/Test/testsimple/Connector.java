@@ -236,7 +236,7 @@ public class Connector {
 						}
 					}
 					peers_on_topic.remove(_dht.peer().peerAddress());
-					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
+					//_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
 					return true;
 					
 				}
