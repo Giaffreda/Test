@@ -226,7 +226,7 @@ public class Connector {
 					test.setMytype(App.type.response);
 					for(PeerAddress peer:peers_on_topic){
 						String message=name+"ha accettato";
-						System.out.println("send response");
+						System.out.println("send response from "+name+" to "+profile);
 						FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 				
 						futureDirect.awaitListenersUninterruptibly();
