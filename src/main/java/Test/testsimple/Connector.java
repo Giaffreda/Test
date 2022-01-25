@@ -227,11 +227,13 @@ public class Connector {
 					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
 					test.setMytype(App.type.response);
 					for(PeerAddress peer:peers_on_topic){
+						if(!(peer.peerId().equals(_dht.peer().peerAddress().peerId()))) {
 						String message=name+"ha accettato";
 						System.out.println("send response from "+name+" to "+profile);
 						FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 				
 						futureDirect.awaitListenersUninterruptibly();
+						}
 					}
 					peers_on_topic.remove(_dht.peer().peerAddress());
 					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
