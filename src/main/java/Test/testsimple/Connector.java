@@ -292,11 +292,12 @@ public class Connector {
 					//_dht.put(Number160.createHash(profile)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 					test=new App("prova", peerId,name);
 					//peers_on_topic.add(_dht.peer().peerAddress());
-					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
-					test.setMytype(App.type.response);
 					FutureDirect futureDirect = _dht.peer().sendDirect(peers_on_topic.iterator().next()).object(test).start();
 					
 					futureDirect.awaitListenersUninterruptibly();
+					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
+					test.setMytype(App.type.response);
+					
 					/*for(PeerAddress peer:peers_on_topic){
 						if(!(peer.peerId().equals(_dht.peer().peerAddress().peerId()))) {
 					
