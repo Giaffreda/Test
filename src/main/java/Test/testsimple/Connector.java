@@ -117,7 +117,7 @@ public class Connector {
 				Number160 id= new Number160(peerId);
 				for(PeerAddress peer:peers_on_topic){
 					System.out.println("peer ="+peer+" peeradress" +_dht.peer().peerAddress());
-					if(peer.equals(_dht.peer().peerAddress())); {
+					if(!(peer.equals(_dht.peer().peerAddress()))) {
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
 					futureDirect.awaitUninterruptibly();
 					}
