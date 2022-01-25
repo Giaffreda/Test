@@ -233,6 +233,8 @@ public class Connector {
 				
 						futureDirect.awaitListenersUninterruptibly();
 					}
+					peers_on_topic.remove(_dht.peer().peerAddress());
+					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 					return true;
 					
 				}
