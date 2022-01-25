@@ -147,7 +147,7 @@ public class Connector {
 			HashSet<PeerAddress> peers_on_topic;
 			try {
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-				test=new App(profilekey, peerId, nickName);
+				
 				for(PeerAddress peer:peers_on_topic)
 				{
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
