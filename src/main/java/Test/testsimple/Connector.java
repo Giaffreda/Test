@@ -59,7 +59,7 @@ public class Connector {
 				System.out.println("future search friends succes");
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-				test=new App(profilekey, peerId, nickName);
+				test=new App(profilekey, peerId, nickName, _dht.peer().peerAddress());
 				//_dht.put(Number160.createHash(name)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 				//peers_on_topic.add(_dht.peer().peerAddress());
 				
@@ -108,7 +108,7 @@ public class Connector {
 				System.out.println("future search friends succes");
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-				test=new App(profilekey, peerId, nickName);
+				test=new App(profilekey, peerId, nickName, _dht.peer().peerAddress());
 				//_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 				//peers_on_topic.add(_dht.peer().peerAddress());
 				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
@@ -139,10 +139,10 @@ public class Connector {
 				System.out.println("future search friends succes");
 				HashSet<PeerAddress> peers_on_topic;
 				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-				test=new App(profilekey, peerId, nickName);
+				test=new App(profilekey, peerId, nickName,_dht.peer().peerAddress());
 				//_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 				//peers_on_topic.add(_dht.peer().peerAddress());
-				//_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("nick name per send di test ="+test.getNickname());
 				test.setMytype(App.type.friends);
 				Number160 id= new Number160(peerId);
@@ -171,7 +171,7 @@ public class Connector {
 			}
 			futureGet=_dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
-			test=new App(profilekey, peerId, nickName);
+			test=new App(profilekey, peerId, nickName, _dht.peer().peerAddress());
 			test.setMytype(App.type.friends);
 			if (futureGet.isSuccess() ) {
 				System.out.println("future 2 success");
@@ -251,7 +251,7 @@ public class Connector {
 				//_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("future cgetfriends succes");
 				System.out.println("future getfriends "+profile);
-				test=new App("prova", peerId,name);
+				test=new App("prova", peerId,name, _dht.peer().peerAddress());
 				test.setMytype(App.type.response);
 				for(PeerAddress peer:peers_on_topic){
 					String message=name+"ha accettato";
@@ -290,7 +290,7 @@ public class Connector {
 					HashSet<PeerAddress> peers_on_topic;
 					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 					//_dht.put(Number160.createHash(profile)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
-					test=new App("prova", peerId,name);
+					test=new App("prova", peerId,name,_dht.peer().peerAddress());
 					//peers_on_topic.add(_dht.peer().peerAddress());
 					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
 					test.setMytype(App.type.response);
@@ -314,7 +314,7 @@ public class Connector {
 			}
 			return false;
 			}
-	  public boolean getFriends3(String name, int profile) throws IOException {
+	  public boolean getFriends3(String name, String profile) throws IOException {
 		  try {
 				FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
 				futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
@@ -337,7 +337,7 @@ public class Connector {
 					HashSet<PeerAddress> peers_on_topic;
 					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 					//_dht.put(Number160.createHash(profile)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
-					test=new App("prova", peerId,name);
+					test=new App("prova", peerId,name,_dht.peer().peerAddress());
 					//peers_on_topic.add(_dht.peer().peerAddress());
 					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
 					test.setMytype(App.type.response);
@@ -361,7 +361,59 @@ public class Connector {
 			}
 			return false;
 			}	 
-	  	public boolean sendMessage(String destination, String source,Object message) {
+	  public boolean getFriends4(String name,String profile, PeerAddress adress) throws IOException {
+		  try {
+				FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
+				futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+					 @Override
+					 public void operationComplete(FutureGet future) throws Exception {
+					  if(future.isSuccess()) { // this flag indicates if the future was successful
+					   System.out.println("success");
+					   
+					  } else {
+					   System.out.println("failure");
+					  }
+					 }
+					}).awaitListenersUninterruptibly();
+				
+				if (futureGet.isSuccess()) {
+					if(futureGet.isEmpty() ) {
+						System.out.println("is empty");
+						return false;
+					}
+					test=new App("prova", peerId,name,_dht.peer().peerAddress());
+					test.setMytype(App.type.response);
+					FutureDirect futureDirect = _dht.peer().sendDirect(adress).object(test).start();
+					
+					futureDirect.awaitListenersUninterruptibly();
+					/*HashSet<PeerAddress> peers_on_topic;
+					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+					//_dht.put(Number160.createHash(profile)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
+					test=new App("prova", peerId,name,_dht.peer().peerAddress());
+					//peers_on_topic.add(_dht.peer().peerAddress());
+					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
+					test.setMytype(App.type.response);
+					for(PeerAddress peer:peers_on_topic){
+						if((peer.peerId().equals(_dht.peer().peerAddress().peerId()))) {
+					
+						String message=name+"ha accettato";
+						System.out.println("send response from "+name+" to "+profile);
+						FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
+				
+						futureDirect.awaitListenersUninterruptibly();
+						}
+					}
+					peers_on_topic.remove(_dht.peer().peerAddress());
+					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();*/
+					return true;
+					
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+			}	
+	  public boolean sendMessage(String destination, String source,Object message) {
 
 	    	FutureGet futureGet = _dht.get(Number160.createHash(destination)).start();
 	        futureGet.awaitUninterruptibly();
@@ -369,7 +421,7 @@ public class Connector {
 		        if (futureGet.isSuccess()) {
 		        	HashSet<PeerAddress> peers_on_topic;
 					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-					App test= new App((String)message,peerId,source);
+					App test= new App((String)message,peerId,source,_dht.peer().peerAddress());
 					test.setMytype(App.type.chat);
 					for(PeerAddress peer:peers_on_topic)
 					{

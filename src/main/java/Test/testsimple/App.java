@@ -2,6 +2,8 @@ package Test.testsimple;
 
 import java.io.Serializable;
 
+import net.tomp2p.peers.PeerAddress;
+
 /**
  * Hello world!
  *
@@ -10,13 +12,15 @@ public class App implements Serializable
 {
     private String text;
     private int peerId;
+    private PeerAddress adress;
     private String Nickname;
     public enum type{chat,friends,response}
     private type mytype;
-    public App(String text,int peerId,String Nickname) {
+    public App(String text,int peerId,String Nickname, PeerAddress adress) {
     	 this.text=text;
         this.peerId=peerId;
         this.Nickname=Nickname;
+        this.adress= adress;
         
     }
 	public String getText() {
@@ -45,5 +49,11 @@ public class App implements Serializable
 	};
 	public String toString() {
 		return " text= "+text+" peerId= "+peerId+" nickname= "+Nickname+" type ="+mytype;
+	}
+	public PeerAddress getAdress() {
+		return adress;
+	}
+	public void setAdress(PeerAddress adress) {
+		this.adress = adress;
 	}
 }
