@@ -27,7 +27,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	private int peerId;
 	final private String adress;
 	public Connector con;
-	private ArrayList<String> friendList;
+	private ArrayList<Object[]> friendList;
 	public SemanticHarmonySocialNetworkImpl(int id, String adress) throws Exception {
 		 question=new ArrayList<String>();
 		 peerId=id;
@@ -36,7 +36,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		 question.add("Ho una parola gentile per tutti");
 		 question.add("Ho una parola gentile per tutti");
 		 this.adress=adress;
-		 friendList=new ArrayList<>();
+		 friendList=new ArrayList<Object[]>();
 		/* peer= new PeerBuilder(Number160.createHash(peerId)).ports(DEFAULT_MASTER_PORT+peerId).start();
 	 	_dht = new PeerBuilderDHT(peer).start();
 	 	FutureBootstrap fb = peer.bootstrap().inetAddress(InetAddress.getByName(adress)).ports(DEFAULT_MASTER_PORT).start();
@@ -106,8 +106,8 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"\n\n");
  			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends4(_nick_name, a.getNickname(),a.getAdress())+"\n\n");
 						
-
-						friendList.add(a.getNickname());
+ 			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
+						friendList.add(newFriends);
  			 				}else {
  			 					terminal.printf("\n"+" key= "+_profile_key+" ricevuto "+a.getText()+"\n\n");
  			 				}
@@ -116,7 +116,8 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 							terminal.printf("\n"+peerid+"] (Direct Message Received) message"+a.getText()+"\n\n");
 							} else {
 								terminal.printf("\n"+peerid+" aggiunge un nuovo amico che ha i dati"+a+"\n\n");
-								friendList.add(a.getNickname());
+								Object newFriends[]= {a.getNickname(),a.getAdress()};
+								friendList.add(newFriends);
 						}
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -159,8 +160,11 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		}
 	@Override
 	public List<String> getFriends() {
-		// TODO Auto-generated method stub
-		return friendList;
+		ArrayList<String> nameFriend= new ArrayList<>();
+		for(int i=0;i<friendList.size();i++) {
+			nameFriend.add((String) (friendList.get(i))[0]);
+		}
+		return nameFriend;
 	}
 
 }
