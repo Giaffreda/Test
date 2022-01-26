@@ -476,8 +476,9 @@ public class Connector {
 					futureDirect.awaitUninterruptibly();
 					
 					
-				return true;
+				
 				}
+				return true;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
