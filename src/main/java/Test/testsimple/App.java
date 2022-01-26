@@ -14,7 +14,7 @@ public class App implements Serializable
     private int peerId;
     private PeerAddress adress;
     private String Nickname;
-    public enum type{chat,friends,response}
+    public enum type{chat,friends,response,multichat}
     private type mytype;
     public App(String text,int peerId,String Nickname, PeerAddress adress) {
     	 this.text=text;

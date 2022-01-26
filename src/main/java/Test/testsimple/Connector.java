@@ -414,6 +414,52 @@ public class Connector {
 			}
 			return false;
 			}	
+	  public boolean getmultichat(String name, String profile) throws IOException {
+		  try {
+				FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
+				futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+					 @Override
+					 public void operationComplete(FutureGet future) throws Exception {
+					  if(future.isSuccess()) { // this flag indicates if the future was successful
+					   System.out.println("success");
+					   
+					  } else {
+					   System.out.println("failure");
+					  }
+					 }
+					}).awaitListenersUninterruptibly();
+				
+				if (futureGet.isSuccess()&& (!profile.equals(name))) {
+					if(futureGet.isEmpty() ) {
+						System.out.println("is empty");
+						return false;
+					}
+					HashSet<PeerAddress> peers_on_topic;
+					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+					//_dht.put(Number160.createHash(profile)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
+					//test=new App("prova", peerId,name,_dht.peer().peerAddress());
+					peers_on_topic.add(_dht.peer().peerAddress());
+					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
+					//test.setMytype(App.type.response);
+					for(PeerAddress peer:peers_on_topic){
+						if(!(peer.peerId().equals(_dht.peer().peerAddress().peerId()))) {
+					
+						String message=name+"ha accettato";
+						System.out.println("send response from "+name+" to "+profile);
+						FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(name+" si è unito alla chat di gruppo").start();
+				
+						futureDirect.awaitListenersUninterruptibly();
+						}
+					}
+					
+					return true;
+					
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+	  }
 	  public boolean sendMessage(String destination, String source,Object message) {
 
 	    	FutureGet futureGet = _dht.get(Number160.createHash(destination)).start();
@@ -460,17 +506,21 @@ public class Connector {
 				if (futureGet.isSuccess() && futureGet.isEmpty()) 
 					System.out.println("future search friends succes");
 				HashSet<PeerAddress> peers_on_topic;
+				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				peers_on_topic.add(_dht.peer().peerAddress());
+				_dht.put(Number160.createHash(chatName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				//HashSet<PeerAddress> peers_on_topic;
 				//peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 				test=new App("grup chat", peerId, chatName, _dht.peer().peerAddress());
-				_dht.put(Number160.createHash(chatName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+				//_dht.put(Number160.createHash(chatName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 				//peers_on_topic.add(_dht.peer().peerAddress());
 				//_dht.put(Number160.createHash(chatName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("nick name per send di test ="+test.getNickname()+ "sixe of peer friend list"+ peerfreinds.size());
-				test.setMytype(App.type.friends);
+				test.setMytype(App.type.multichat);
 				Number160 id= new Number160(peerId);
 				for (int i=0;i<peerfreinds.size();i++) {
 				
-					System.out.println("peer ="+peerfreinds.get(i).peerId()+" peeradress" +_dht.peer().peerAddress().peerId());
+					//System.out.println("peer ="+peerfreinds.get(i).peerId()+" peeradress" +_dht.peer().peerAddress().peerId());
 					//if(!(peer.equals(_dht.peer().peerAddress()))) {
 					FutureDirect futureDirect = _dht.peer().sendDirect(peerfreinds.get(i)).object(test).start();
 					futureDirect.awaitUninterruptibly();
