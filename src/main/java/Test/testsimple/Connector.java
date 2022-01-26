@@ -142,7 +142,7 @@ public class Connector {
 				test=new App(profilekey, peerId, nickName);
 				//_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 				//peers_on_topic.add(_dht.peer().peerAddress());
-				_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				//_dht.put(Number160.createHash(nickName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("nick name per send di test ="+test.getNickname());
 				test.setMytype(App.type.friends);
 				Number160 id= new Number160(peerId);
@@ -292,13 +292,9 @@ public class Connector {
 					//_dht.put(Number160.createHash(profile)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
 					test=new App("prova", peerId,name);
 					//peers_on_topic.add(_dht.peer().peerAddress());
-					FutureDirect futureDirect = _dht.peer().sendDirect(peers_on_topic.iterator().next()).object(test).start();
-					
-					futureDirect.awaitListenersUninterruptibly();
 					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
 					test.setMytype(App.type.response);
-					
-					/*for(PeerAddress peer:peers_on_topic){
+					for(PeerAddress peer:peers_on_topic){
 						if(!(peer.peerId().equals(_dht.peer().peerAddress().peerId()))) {
 					
 						String message=name+"ha accettato";
@@ -307,7 +303,7 @@ public class Connector {
 				
 						futureDirect.awaitListenersUninterruptibly();
 						}
-					}*/
+					}
 					peers_on_topic.remove(_dht.peer().peerAddress());
 					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
 					return true;
@@ -318,7 +314,55 @@ public class Connector {
 			}
 			return false;
 			}
-	  public boolean sendMessage(String destination, String source,Object message) {
+	  public boolean getFriends3(String name, int profile) throws IOException {
+		  try {
+				FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
+				futureGet.addListener(new BaseFutureAdapter<FutureGet>() {
+					 @Override
+					 public void operationComplete(FutureGet future) throws Exception {
+					  if(future.isSuccess()) { // this flag indicates if the future was successful
+					   System.out.println("success");
+					   
+					  } else {
+					   System.out.println("failure");
+					  }
+					 }
+					}).awaitListenersUninterruptibly();
+				
+				if (futureGet.isSuccess()) {
+					if(futureGet.isEmpty() ) {
+						System.out.println("is empty");
+						return false;
+					}
+					HashSet<PeerAddress> peers_on_topic;
+					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+					//_dht.put(Number160.createHash(profile)).data(new Data( peers_on_topic=(new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
+					test=new App("prova", peerId,name);
+					//peers_on_topic.add(_dht.peer().peerAddress());
+					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
+					test.setMytype(App.type.response);
+					for(PeerAddress peer:peers_on_topic){
+						if((peer.peerId().equals(_dht.peer().peerAddress().peerId()))) {
+					
+						String message=name+"ha accettato";
+						System.out.println("send response from "+name+" to "+profile);
+						FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
+				
+						futureDirect.awaitListenersUninterruptibly();
+						}
+					}
+					peers_on_topic.remove(_dht.peer().peerAddress());
+					_dht.put(Number160.createHash(profile)).data(new Data(peers_on_topic)).start().awaitListenersUninterruptibly();
+					return true;
+					
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+			}	 
+	  	public boolean sendMessage(String destination, String source,Object message) {
+
 	    	FutureGet futureGet = _dht.get(Number160.createHash(destination)).start();
 	        futureGet.awaitUninterruptibly();
 	        try {

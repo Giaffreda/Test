@@ -104,7 +104,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 						//con.getFriends(_nick_name, a.getNickname());
 						//terminal.printf("\n"+"] (Direct Message Received) message"+a.getText()+"\n\n");
  			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"\n\n");
- 			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends2(_nick_name, a.getNickname())+"\n\n");
+ 			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends3(_nick_name, a.getPeerId()))+"\n\n");
 						
 
 						friendList.add(a.getNickname());
