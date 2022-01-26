@@ -163,6 +163,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	}
 	public void groupChat() {
 		ArrayList<PeerAddress> peerfreinds=new ArrayList<PeerAddress>();
+		System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAA friends"+friendList.size());
 		for (int i=0;i<friendList.size();i++) {
 			peerfreinds.add((PeerAddress) friendList.get(i)[1]);
 		}
