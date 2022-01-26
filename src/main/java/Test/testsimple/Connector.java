@@ -506,7 +506,7 @@ public class Connector {
 		        	test=new App("prova", peerId,source,_dht.peer().peerAddress());
 					test.setMytype(App.type.chat);
 					Peer peer2= new PeerBuilder(Number160.createHash(peerId)).ports(DEFAULT_MASTER_PORT+peerId).start();
-					FutureDirect futureDirect = _dht.peer().sendDirect(peer.peerAddress()).object(message).start();
+					FutureDirect futureDirect = _dht.peer().sendDirect(peer2.peerAddress()).object(message).start();
 					
 					futureDirect.awaitListenersUninterruptibly();
 					return true;
