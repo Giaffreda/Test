@@ -154,13 +154,15 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	public void message(String nick) {
 		TextIO textIO = TextIoFactory.getTextIO();
 	    TextTerminal terminal = textIO.getTextTerminal();
-		String destination=textIO.newStringInputReader().withDefaultValue("default").read("destination");
+		//String destination=textIO.newStringInputReader().withDefaultValue("default").read("destination");
+	    int destination=textIO.newIntInputReader().withDefaultValue(0).read("id destinazione");
 		int i=0;
-		while(!destination.equals(friendList.get(i)[0])) {
+		/*while(!destination.equals(friendList.get(i)[0])) {
 			i++;
-		}
+		}*/
 		String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
-		con.sendMessage2((PeerAddress) friendList.get(i)[1], nick, message);
+		//con.sendMessage2((PeerAddress) friendList.get(i)[1], nick, message);
+		con.sendMessagebyid(destination, nick, message);
 		
 	}
 	public void groupChat() {
