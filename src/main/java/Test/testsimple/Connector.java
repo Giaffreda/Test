@@ -460,11 +460,11 @@ public class Connector {
 				if (futureGet.isSuccess() && futureGet.isEmpty()) 
 					System.out.println("future search friends succes");
 				HashSet<PeerAddress> peers_on_topic;
-				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				//peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
 				test=new App("grup chat", peerId, chatName, _dht.peer().peerAddress());
-				//_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
-				peers_on_topic.add(_dht.peer().peerAddress());
-				_dht.put(Number160.createHash(chatName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				_dht.put(Number160.createHash(chatName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+				//peers_on_topic.add(_dht.peer().peerAddress());
+				//_dht.put(Number160.createHash(chatName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
 				System.out.println("nick name per send di test ="+test.getNickname());
 				test.setMytype(App.type.friends);
 				Number160 id= new Number160(peerId);
