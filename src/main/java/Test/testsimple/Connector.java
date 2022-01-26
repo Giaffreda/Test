@@ -465,13 +465,14 @@ public class Connector {
 				_dht.put(Number160.createHash(chatName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
 				//peers_on_topic.add(_dht.peer().peerAddress());
 				//_dht.put(Number160.createHash(chatName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
-				System.out.println("nick name per send di test ="+test.getNickname());
+				System.out.println("nick name per send di test ="+test.getNickname()+ "sixe of peer friend list"+ peerfreinds.size());
 				test.setMytype(App.type.friends);
 				Number160 id= new Number160(peerId);
-				for(PeerAddress peer:peerfreinds){
-					System.out.println("peer ="+peer.peerId()+" peeradress" +_dht.peer().peerAddress().peerId());
+				for (int i=0;i<peerfreinds.size();i++) {
+				
+					System.out.println("peer ="+peerfreinds.get(i).peerId()+" peeradress" +_dht.peer().peerAddress().peerId());
 					//if(!(peer.equals(_dht.peer().peerAddress()))) {
-					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
+					FutureDirect futureDirect = _dht.peer().sendDirect(peerfreinds.get(i)).object(test).start();
 					futureDirect.awaitUninterruptibly();
 					
 					
