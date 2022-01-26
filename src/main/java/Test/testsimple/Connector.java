@@ -2,6 +2,7 @@ package Test.testsimple;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import net.tomp2p.dht.FutureGet;
@@ -451,6 +452,37 @@ public class Connector {
 				}
 	    	return false;
 	    }
+	  public boolean createGroupChat(String chatName, ArrayList<PeerAddress> peerfreinds){
+
+			try {
+				FutureGet futureGet = _dht.get(Number160.createHash(chatName)).start();
+				futureGet.awaitUninterruptibly();
+				if (futureGet.isSuccess() && futureGet.isEmpty()) 
+					System.out.println("future search friends succes");
+				HashSet<PeerAddress> peers_on_topic;
+				peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
+				test=new App("grup chat", peerId, chatName, _dht.peer().peerAddress());
+				//_dht.put(Number160.createHash(nickName)).data(new Data(new HashSet<PeerAddress>())).start().awaitUninterruptibly();
+				peers_on_topic.add(_dht.peer().peerAddress());
+				_dht.put(Number160.createHash(chatName)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+				System.out.println("nick name per send di test ="+test.getNickname());
+				test.setMytype(App.type.friends);
+				Number160 id= new Number160(peerId);
+				for(PeerAddress peer:peerfreinds){
+					System.out.println("peer ="+peer.peerId()+" peeradress" +_dht.peer().peerAddress().peerId());
+					//if(!(peer.equals(_dht.peer().peerAddress()))) {
+					if(!(peer.peerId().equals(_dht.peer().peerAddress().peerId()))) {
+					FutureDirect futureDirect = _dht.peer().sendDirect(peer).object(test).start();
+					futureDirect.awaitUninterruptibly();
+					}
+					
+				return true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
+		}
 	   public String get(String name) throws ClassNotFoundException, IOException {
 	        FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 	        futureGet.awaitUninterruptibly();

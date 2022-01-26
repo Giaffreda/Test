@@ -115,6 +115,8 @@ public class ExampleSimple {
 					System.exit(0);
 				}else if(textIO.newBooleanInputReader().withDefaultValue(false).read("send?")){
 					ex.message(nick);
+				}else if(textIO.newBooleanInputReader().withDefaultValue(false).read("create group chat?")){
+					ex.groupChat();
 				}
 				}
 	    	 // BasicConfigurator.configure();

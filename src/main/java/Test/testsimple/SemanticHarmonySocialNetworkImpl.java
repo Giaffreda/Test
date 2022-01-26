@@ -161,6 +161,13 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		con.sendMessage2((PeerAddress) friendList.get(i)[1], nick, message);
 		
 	}
+	public void groupChat() {
+		ArrayList<PeerAddress> peerfreinds=new ArrayList<PeerAddress>();
+		for (int i=0;i<friendList.size();i++) {
+			peerfreinds.add((PeerAddress) friendList.get(i)[1]);
+		}
+		con.createGroupChat("gruppo", peerfreinds);
+	}
 	 public int hammingDistance(String a, String b) {
 			int count=0;
 			System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAA"+a.length());
