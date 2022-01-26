@@ -149,6 +149,18 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  		
 		return false;
 	}
+	public void message(String nick) {
+		TextIO textIO = TextIoFactory.getTextIO();
+	    TextTerminal terminal = textIO.getTextTerminal();
+		String destination=textIO.newStringInputReader().withDefaultValue("default").read("destination");
+		int i=0;
+		while(destination.equals(friendList.get(i)[0])) {
+			i++;
+		}
+		String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
+		con.sendMessage2((PeerAddress) friendList.get(i)[1], nick, message);
+		
+	}
 	 public int hammingDistance(String a, String b) {
 			int count=0;
 			System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAA"+a.length());

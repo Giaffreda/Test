@@ -114,7 +114,7 @@ public class ExampleSimple {
 					 System.out.println("twst"+ex.getFriends().get(i));
 					System.exit(0);
 				}else if(textIO.newBooleanInputReader().withDefaultValue(false).read("send?")){
-					ex.con.sendMessage(textIO.newStringInputReader().withDefaultValue("default").read("destination"), nick, "messaggio di prova");
+					ex.message(nick);
 				}
 				}
 	    	 // BasicConfigurator.configure();

@@ -434,6 +434,23 @@ public class Connector {
 				}
 	    	return false;
 	    }
+	  public boolean sendMessage2(PeerAddress destination, String source,Object message) {
+
+	    	FutureGet futureGet = _dht.get(Number160.createHash(source)).start();
+	        futureGet.awaitUninterruptibly();
+	        try {
+		        if (futureGet.isSuccess()) {
+		        	test=new App("prova", peerId,source,_dht.peer().peerAddress());
+					test.setMytype(App.type.chat);
+					FutureDirect futureDirect = _dht.peer().sendDirect(destination).object(message).start();
+					
+					futureDirect.awaitListenersUninterruptibly();
+					return true;
+		        }}catch (Exception e) {
+					// TODO: handle exception
+				}
+	    	return false;
+	    }
 	   public String get(String name) throws ClassNotFoundException, IOException {
 	        FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 	        futureGet.awaitUninterruptibly();
