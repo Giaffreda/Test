@@ -154,7 +154,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	    TextTerminal terminal = textIO.getTextTerminal();
 		String destination=textIO.newStringInputReader().withDefaultValue("default").read("destination");
 		int i=0;
-		while(destination.equals(friendList.get(i)[0])) {
+		while(!destination.equals(friendList.get(i)[0])) {
 			i++;
 		}
 		String message=textIO.newStringInputReader().withDefaultValue("default").read("message");
