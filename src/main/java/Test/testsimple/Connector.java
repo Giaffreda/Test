@@ -239,7 +239,7 @@ public class Connector {
 			e.printStackTrace();
 		}
 	    } 
-	  public void store2(int name, String ip) throws IOException {
+	  public void store2(String name, String ip) throws IOException {
 	    	try {
 	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
 			futureGet.awaitUninterruptibly();
@@ -513,7 +513,7 @@ public class Connector {
 				}
 	    	return false;
 	    }
-	  public boolean sendMessagebyid(int destination, String source,Object message) {
+	  public boolean sendMessagebyid(String destination, String source,Object message) {
 
 	    	FutureGet futureGet = _dht.get(Number160.createHash(destination)).start();
 	        futureGet.awaitUninterruptibly();

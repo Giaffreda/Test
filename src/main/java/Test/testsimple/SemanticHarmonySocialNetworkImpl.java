@@ -143,7 +143,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				System.out.println("nick name per search ="+_nick_name);
 				con.searchFriends3("test", _nick_name, _profile_key);
 			}
-			con.store2(peerId,"null");
+			con.store2(_nick_name,"null");
 			con.get( "test");
 			//con.get( _nick_name);
 		} catch (Exception e) {
@@ -156,8 +156,8 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 	public void message(String nick) {
 		TextIO textIO = TextIoFactory.getTextIO();
 	    TextTerminal terminal = textIO.getTextTerminal();
-		//String destination=textIO.newStringInputReader().withDefaultValue("default").read("destination");
-	    int destination=textIO.newIntInputReader().withDefaultValue(0).read("id destinazione");
+		String destination=textIO.newStringInputReader().withDefaultValue("default").read("destination");
+	    //int destination=textIO.newIntInputReader().withDefaultValue(0).read("id destinazione");
 		int i=0;
 		/*while(!destination.equals(friendList.get(i)[0])) {
 			i++;
