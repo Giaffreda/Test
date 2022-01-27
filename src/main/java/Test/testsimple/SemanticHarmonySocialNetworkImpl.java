@@ -145,7 +145,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			}
 			con.store(_nick_name,"null");
 			con.get( "test");
-			//con.get( _nick_name);
+			con.get( _nick_name);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
