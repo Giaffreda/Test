@@ -137,13 +137,15 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			if(peerId==0) {
 			con.store("test", "ip");
 			//con.store(_nick_name,"null");
+			con.store2(_nick_name,"null");
 			}else {
 				con.store("test", "ip");
+				con.store2(_nick_name,"null");
 				//con.get( "test");
 				System.out.println("nick name per search ="+_nick_name);
 				con.searchFriends2("test", _nick_name, _profile_key);
 			}
-			con.store2(_nick_name,"null");
+			//con.store2(_nick_name,"null");
 			con.get( "test");
 			//con.get( _nick_name);
 		} catch (Exception e) {
