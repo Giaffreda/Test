@@ -499,23 +499,23 @@ public class Connector {
 	    }
 	  public boolean sendMessagebyid(int destination, String source,Object message) {
 
-	    	FutureGet futureGet = _dht.get(Number160.createHash("test")).start();
+	    	FutureGet futureGet = _dht.get(Number160.createHash(destination)).start();
 	        futureGet.awaitUninterruptibly();
 	        try {
 		        if (futureGet.isSuccess()) {
 		        	HashSet<PeerAddress> peers_on_topic;
 					peers_on_topic = (HashSet<PeerAddress>) futureGet.dataMap().values().iterator().next().object();
-		        	test=new App("prova", peerId,source,_dht.peer().peerAddress());
+		        	/*test=new App("prova", peerId,source,_dht.peer().peerAddress());
 					test.setMytype(App.type.chat);
 					Peer peer2= new PeerBuilder(Number160.createHash(destination)).ports(DEFAULT_MASTER_PORT+destination).start();
 					FutureDirect futureDirect = _dht.peer().sendDirect(peer2.peerAddress()).object(message).start();
 					
-					futureDirect.awaitListenersUninterruptibly();
-					/*for(PeerAddress peer:peers_on_topic)
+					futureDirect.awaitListenersUninterruptibly();*/
+					for(PeerAddress peer:peers_on_topic)
 					{
 						FutureDirect futureDirect = _dht.peer().sendDirect(peer).object("message").start();
 						futureDirect.awaitUninterruptibly();
-					}*/
+					}
 					return true;
 		        }}catch (Exception e) {
 					// TODO: handle exception
