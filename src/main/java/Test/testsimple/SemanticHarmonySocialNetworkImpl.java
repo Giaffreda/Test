@@ -104,7 +104,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 						//con.getFriends(_nick_name, a.getNickname());
 						//terminal.printf("\n"+"] (Direct Message Received) message"+a.getText()+"\n\n");
  			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"\n\n");
- 			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends4(_nick_name, a.getNickname(),a.getAdress())+"\n\n");
+ 			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends5(_nick_name, a.getNickname())+"\n\n");
 						
  			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
 						friendList.add(newFriends);
@@ -141,7 +141,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 				con.store("test", "ip");
 				//con.get( "test");
 				System.out.println("nick name per search ="+_nick_name);
-				con.searchFriends3("test", _nick_name, _profile_key);
+				con.searchFriends2("test", _nick_name, _profile_key);
 			}
 			con.store2(_nick_name,"null");
 			con.get( "test");
