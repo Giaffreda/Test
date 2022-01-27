@@ -239,6 +239,22 @@ public class Connector {
 			e.printStackTrace();
 		}
 	    } 
+	  public void store2(int name, String ip) throws IOException {
+	    	try {
+	    	FutureGet futureGet = _dht.get(Number160.createHash(name)).start();
+			futureGet.awaitUninterruptibly();
+			if (futureGet.isSuccess() && futureGet.isEmpty()) {
+				HashSet<PeerAddress> peers_on_topic;
+				 peers_on_topic=new HashSet<PeerAddress>();
+	        _dht.put(Number160.createHash(name)).data(new Data((new HashSet<PeerAddress>()))).start().awaitUninterruptibly();
+	        peers_on_topic.add(_dht.peer().peerAddress());
+	        _dht.put(Number160.createHash(name)).data(new Data(peers_on_topic)).start().awaitUninterruptibly();
+	        System.out.print("put test");
+			}
+	    } catch (Exception e) {
+			e.printStackTrace();
+		}
+	    } 
 	  public void getFriends(String name, String profile) throws IOException {
 	    	FutureGet futureGet = _dht.get(Number160.createHash(profile)).start();
 	    	System.out.println("future status"+futureGet.toString());
