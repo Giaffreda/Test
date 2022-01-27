@@ -103,13 +103,23 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  			 				if(hammingDistance(a.getText(), _profile_key)<2) {
 						//con.getFriends(_nick_name, a.getNickname());
 						//terminal.printf("\n"+"] (Direct Message Received) message"+a.getText()+"\n\n");
+ 			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
+ 			 					if(!friendList.contains(newFriends))
+ 			 					{
  			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"\n\n");
  			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends5(_nick_name, a.getNickname())+"\n\n");
 						
- 			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
-						friendList.add(newFriends);
+ 			 					friendList.add(newFriends);
+ 			 					}
  			 				}else {
- 			 					terminal.printf("\n"+" key= "+_profile_key+" ricevuto "+a.getText()+"\n\n");
+ 			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
+ 			 					if(friendList.contains(newFriends))
+ 			 					{
+ 			 					terminal.printf("\n"+peerid+" rimosso amico con i dati che ha i dati"+a+"\n\n");
+ 			 			
+ 			 					friendList.remove(newFriends);
+ 			 					}
+ 			 					
  			 				}
 						//}
 						}else if(a.getMytype()==App.type.chat){
@@ -195,5 +205,6 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		}
 		return nameFriend;
 	}
-
+	
+	
 }
