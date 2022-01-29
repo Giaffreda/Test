@@ -530,10 +530,10 @@ public class Connector {
 					}).awaitListenersUninterruptibly();
 				
 				if (futureGet.isSuccess()) {
-					if(futureGet.isEmpty() ) {
+					/*if(futureGet.isEmpty() ) {
 						System.out.println("is empty");
 						return false;
-					}
+					}*/
 					test=new App("prova", peerId,name,_dht.peer().peerAddress());
 					test.setMytype(App.type.response);
 					FutureDirect futureDirect = _dht.peer().sendDirect(adress).object(test).start();
