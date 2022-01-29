@@ -104,21 +104,38 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 						//con.getFriends(_nick_name, a.getNickname());
 						//terminal.printf("\n"+"] (Direct Message Received) message"+a.getText()+"\n\n");
  			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
- 			 					if(!friendList.contains(newFriends))
+ 			 					for (int i=0;i<friendList.size();i++) {
+ 			 						if (friendList.get(i)[0].equals(newFriends[0])) {
+ 			 							
+ 		 			 					break;
+ 			 						}
+ 			 						}
+ 			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"con indirizzo"+a.getAdress()+"sender ="+sender+"\n\n");
+	 			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends5b(_nick_name, a.getNickname(),sender)+"\n\n");
+							
+	 			 					friendList.add(newFriends);
+ 			 					/*if(!friendList.contains(newFriends))
  			 					{
  			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"con indirizzo"+a.getAdress()+"sender ="+sender+"\n\n");
  			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends5b(_nick_name, a.getNickname(),sender)+"\n\n");
 						
  			 					friendList.add(newFriends);
- 			 					}
+ 			 					}*/
  			 				}else {
  			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
- 			 					if(friendList.contains(newFriends))
+ 			 					for (int i=0;i<friendList.size();i++) {
+ 			 						if (friendList.get(i)[0].equals(newFriends[0])) {
+ 			 							terminal.printf("\n"+peerid+" rimosso amico con i dati che ha i dati"+a+"\n\n");
+ 			 	 			 			
+ 		 			 					friendList.remove(newFriends);
+ 			 						}
+ 			 					}
+ 			 					/*if(friendList.contains(newFriends))
  			 					{
  			 					terminal.printf("\n"+peerid+" rimosso amico con i dati che ha i dati"+a+"\n\n");
  			 			
  			 					friendList.remove(newFriends);
- 			 					}
+ 			 					}*/
  			 					//terminal.printf("\n"+friendList.get(0)+newFriends+"\n\n");
  			 					terminal.printf("\n"+peerid+" amicizia non corrisposta"+a+"\n\n");
  			 				}
