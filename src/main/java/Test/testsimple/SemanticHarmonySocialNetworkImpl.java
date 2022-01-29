@@ -107,7 +107,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  			 					if(!friendList.contains(newFriends))
  			 					{
  			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"con indirizzo"+a.getAdress()+"sender ="+sender+"\n\n");
- 			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends5(_nick_name, a.getNickname())+"\n\n");
+ 			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends5b(_nick_name, a.getNickname(),sender)+"\n\n");
 						
  			 					friendList.add(newFriends);
  			 					}
@@ -148,13 +148,13 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 			if(peerId==0) {
 			con.store("test", "ip");
 			//con.store(_nick_name,"null");
-			con.store2(_nick_name,"null");
+			//con.store2(_nick_name,"null");
 			}else {
 				con.store("test", "ip");
-				con.store2(_nick_name,"null");
+				//con.store2(_nick_name,"null");
 				//con.get( "test");
 				System.out.println("nick name per search ="+_nick_name);
-				con.searchFriends2("test", _nick_name, _profile_key);
+				con.searchFriends2b("test", _nick_name, _profile_key);
 			}
 			//con.store2(_nick_name,"null");
 			con.get( "test");
