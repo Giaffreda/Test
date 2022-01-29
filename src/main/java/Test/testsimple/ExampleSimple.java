@@ -109,6 +109,33 @@ public class ExampleSimple {
 	    	ex.join(key,nick );
 	    	System.out.println(ex.con.peerId);
 	    	while(true) {
+	    		System.out.println("1 = exit");
+	    		System.out.println("2 = message");
+	    		System.out.println("3 = group chat");
+	    		System.out.println("4 = change nickname");
+				int option = textIO.newIntInputReader()
+						.withMaxVal(4)
+						.withMinVal(1)
+						.read("Option");
+				switch (option) {
+				case 1:
+					for(int i=0; i<ex.getFriends().size();i++)
+						 System.out.println("twst"+ex.getFriends().get(i));
+						System.exit(0);
+						break;
+				case 2:
+					ex.message(nick);
+					break;
+				case 3:
+					ex.groupChat();
+				case 4:
+					ex.changeKey( nick);
+					break;
+				default:
+					break;
+				}
+	    	}
+	    	/*while(true) {
 				if(textIO.newBooleanInputReader().withDefaultValue(false).read("exit?")) {
 					for(int i=0; i<ex.getFriends().size();i++)
 					 System.out.println("twst"+ex.getFriends().get(i));
@@ -118,7 +145,7 @@ public class ExampleSimple {
 				}else if(textIO.newBooleanInputReader().withDefaultValue(false).read("create group chat?")){
 					ex.groupChat();
 				}
-				}
+				}*/
 	    	 // BasicConfigurator.configure();
 	        /*ExampleSimple dns = new ExampleSimple(Integer.parseInt(args[0]),args[2],new MessageListenerImpl(Integer.parseInt(args[0])));
 	        TextIO textIO = TextIoFactory.getTextIO();

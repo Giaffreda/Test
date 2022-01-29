@@ -112,13 +112,13 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  			 					friendList.add(newFriends);
  			 					}
  			 				}else {
- 			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
+ 			 				/*	Object newFriends[]= {a.getNickname(),a.getAdress()};
  			 					if(friendList.contains(newFriends))
  			 					{
  			 					terminal.printf("\n"+peerid+" rimosso amico con i dati che ha i dati"+a+"\n\n");
  			 			
  			 					friendList.remove(newFriends);
- 			 					}
+ 			 					}*/
  			 					
  			 				}
 						//}
@@ -205,6 +205,20 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 		}
 		return nameFriend;
 	}
-	
+	public void changeKey(String nickName) {
+		List<String> question= getUserProfileQuestions();
+    	List <Integer> answer =new ArrayList<>();
+    	for (int i=0; i<question.size();i++) {
+    		answer.add(Integer.parseInt(question.get(i)));
+    	}
+    	String key= createAuserProfileKey(answer);
+    	friendList.clear();
+    	try {
+			con.searchFriends2("test", nickName, key);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }
