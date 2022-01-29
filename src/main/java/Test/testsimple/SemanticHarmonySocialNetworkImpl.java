@@ -107,7 +107,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  			 					if(!friendList.contains(newFriends))
  			 					{
  			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"con indirizzo"+a.getAdress()+"sender ="+sender+"\n\n");
- 			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends5b(_nick_name, a.getNickname(),a.getAdress())+"\n\n");
+ 			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends5b(_nick_name, a.getNickname(),sender)+"\n\n");
 						
  			 					friendList.add(newFriends);
  			 					}
