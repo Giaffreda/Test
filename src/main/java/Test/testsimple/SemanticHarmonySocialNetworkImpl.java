@@ -112,14 +112,14 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  			 					friendList.add(newFriends);
  			 					}
  			 				}else {
- 			 				/*	Object newFriends[]= {a.getNickname(),a.getAdress()};
+ 			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
  			 					if(friendList.contains(newFriends))
  			 					{
  			 					terminal.printf("\n"+peerid+" rimosso amico con i dati che ha i dati"+a+"\n\n");
  			 			
  			 					friendList.remove(newFriends);
- 			 					}*/
- 			 					
+ 			 					}
+ 			 					terminal.printf("\n"+peerid+" amicizia non corrisposta"+a+"\n\n");
  			 				}
 						//}
 						}else if(a.getMytype()==App.type.chat){
