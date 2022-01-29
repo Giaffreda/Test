@@ -92,7 +92,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  				TextIO textIO = TextIoFactory.getTextIO();
  				TextTerminal terminal = textIO.getTextTerminal();
  				;
- 				terminal.printf("\n"+peerid+"] (Direct Message Received) "+obj+"sender ="+sender+"\n\n");
+ 				terminal.printf("\n"+peerid+"] (Direct Message Received) "+obj+"\n\n");
  				//String a= (String) obj;
  					try {
  						App a = (App) obj;
@@ -106,7 +106,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
  			 					if(!friendList.contains(newFriends))
  			 					{
- 			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"\n\n");
+ 			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"con indirizzo"+a.getAdress()+"sender ="+sender+"\n\n");
  			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends5(_nick_name, a.getNickname())+"\n\n");
 						
  			 					friendList.add(newFriends);
