@@ -104,7 +104,7 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
 						//con.getFriends(_nick_name, a.getNickname());
 						//terminal.printf("\n"+"] (Direct Message Received) message"+a.getText()+"\n\n");
  			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
- 			 					if(!friendList.contains(newFriends[0]))
+ 			 					if(!friendList.contains(newFriends))
  			 					{
  			 					terminal.printf("\n"+peerid+" invia response amico con i dati che ha i dati"+a+"\n\n");
  			 					terminal.printf("\n"+peerid+" risultati getfreinds"+con.getFriends5(_nick_name, a.getNickname())+"\n\n");
@@ -113,12 +113,13 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  			 					}
  			 				}else {
  			 					Object newFriends[]= {a.getNickname(),a.getAdress()};
- 			 					if(friendList.contains(newFriends[0]))
+ 			 					if(friendList.contains(newFriends))
  			 					{
  			 					terminal.printf("\n"+peerid+" rimosso amico con i dati che ha i dati"+a+"\n\n");
  			 			
  			 					friendList.remove(newFriends);
  			 					}
+ 			 					terminal.printf("\n"+friendList.get(0)+newFriends+"\n\n");
  			 					terminal.printf("\n"+peerid+" amicizia non corrisposta"+a+"\n\n");
  			 				}
 						//}
