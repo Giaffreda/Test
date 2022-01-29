@@ -39,7 +39,7 @@ public class Connector {
 	 			
 	 			public Object reply(PeerAddress sender, Object request) throws Exception {
 	 				System.out.println("obj reply");
-	 				return _listener.parseMessage(request);
+	 				return _listener.parseMessage(sender,request);
 	 			}
 	 		});
 	}

@@ -87,12 +87,12 @@ public class SemanticHarmonySocialNetworkImpl implements SemanticHarmonySocialNe
  				//type.valueOf(_nick_name);
 
  			}
- 			public Object parseMessage(Object obj) {
+ 			public Object parseMessage(PeerAddress sender, Object obj) {
  				
  				TextIO textIO = TextIoFactory.getTextIO();
  				TextTerminal terminal = textIO.getTextTerminal();
  				;
- 				terminal.printf("\n"+peerid+"] (Direct Message Received) "+obj+"\n\n");
+ 				terminal.printf("\n"+peerid+"] (Direct Message Received) "+obj+"sender ="+sender+"\n\n");
  				//String a= (String) obj;
  					try {
  						App a = (App) obj;
